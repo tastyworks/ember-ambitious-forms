@@ -1,7 +1,7 @@
 import Ember from 'ember'
-import FmOptionable from './fm/optionable'
+import OptionsConverted from '../mixins/options-converted'
 
-export default FmOptionable.extend({
+export default Ember.Component.extend(OptionsConverted, {
   tagName: 'span',
   classNames: ['fm-radio-group'],
 

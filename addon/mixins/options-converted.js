@@ -1,6 +1,6 @@
 import Ember from 'ember'
 
-export default Ember.Component.extend({
+export default Ember.Mixin.create({
   optionsConverted: Ember.computed('options.[]', function () {
     // not dependent on 'value' because we manually observe those changes
     let selectedValue = this.get('value')
@@ -23,7 +23,7 @@ export default Ember.Component.extend({
     })
   }),
 
-  _selectedValueObserver: Ember.observer('value', function () {
+  _optionsConvertedSelectedObserver: Ember.observer('value', function () {
     let selectedValue = this.get('value')
     let optionsConverted = this.get('optionsConverted')
 
