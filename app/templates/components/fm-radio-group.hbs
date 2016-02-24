@@ -1,0 +1,5 @@
+{{#each optionsConverted as |option|}}
+  {{#fm-radio name=name value=option.value selectedValue=value}}
+    {{option.text}}
+  {{/fm-radio}}
+{{/each}}

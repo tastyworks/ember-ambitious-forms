@@ -1,0 +1,8 @@
+<select class='fm-select-input' change='selectChange'>
+  {{#if prompt}}
+    <option>{{prompt}}</option>
+  {{/if}}
+  {{#each optionsConverted as |option|}}
+    <option selected=option.selected value=option.value>{{option.text}}</option>
+  {{/each}}
+</select>

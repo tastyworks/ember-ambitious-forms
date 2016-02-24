@@ -1,0 +1,20 @@
+<span class='fm-header {{headerClass}}'>
+  {{#if label}}
+    <span class='fm-label {{labelClass}}'>{{label}}</span>
+  {{/if}}
+  {{#if hint}}
+    <span class='fm-hint {{hintClass}}'>{{hint}}</span>
+  {{/if}}
+</span>
+
+<span class='fm-body'>
+  {{#if hasBlock}}
+    {{yield value}}
+  {{else}}
+    {{component inputComponent class=inputClass value=value type=type options=options prompt=prompt placeholder=placeholder}}
+  {{/if}}
+</span>
+
+{{#if showError}}
+  <span class='fm-error {{errorClass}}'>{{errors}}</span>
+{{/if}}
