@@ -25,14 +25,22 @@ export default Ember.Component.extend({
     Ember.$('html, body').animate({ scrollTop: offset.top - paddingTop }, 200)
   },
 
-  actions: {
-    showErrors () {
-      let afFields = this.get('afFieldsWithError')
-      afFields.forEach((afField) => {
-        afField.set('hideError', false)
-      })
+  showFieldErrors () {
+    let fields = this.get('afFieldsWithError')
+    fields.forEach((field) => {
+      field.set('hideError', false)
+    })
 
-      this.scrollTo(afFields.objectAt(0), { paddingTop: 20 })
+    this.scrollTo(fields.objectAt(0), { paddingTop: 20 })
+  },
+
+  submit () {
+    if (this.get('hasError')) {
+      this.showFieldErrors()
+      this.sendAction('error')
+    } else {
+      this.sendAction('submit')
+      this.sendAction()
     }
   }
 })
