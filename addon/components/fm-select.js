@@ -2,10 +2,12 @@ import Ember from 'ember'
 import OptionsConverted from '../mixins/options-converted'
 
 export default Ember.Component.extend(OptionsConverted, {
+  service: Ember.inject.service('fm'),
+
   tagName: 'span',
   classNames: 'fm-select',
 
-  prompt: 'Select',
+  prompt: Ember.computed.oneWay('service.defaultPrompt'),
   actions: {
     selectChange () {
       let formValue = this.$('.fm-select-input').val()

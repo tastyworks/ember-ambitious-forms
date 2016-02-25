@@ -1,6 +1,8 @@
 import Ember from 'ember'
 
 export default Ember.Component.extend({
+  service: Ember.inject.service('fm'),
+
   tagName: 'label',
   classNames: ['fm-field'],
 
@@ -95,7 +97,7 @@ export default Ember.Component.extend({
   hintClass: null,
   hint: null,
 
-  prompt: 'Select',
+  prompt: Ember.computed.oneWay('service.defaultPrompt'),
   options: Ember.computed.alias('optionValues'),
 
   optionValues: Ember.computed('fieldType', function () {
