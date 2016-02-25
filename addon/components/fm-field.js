@@ -25,7 +25,7 @@ export default Ember.Component.extend({
       return 'number'
     }
 
-    let lcaseFieldKey = this.get('fieldKey').toLowerCase()
+    let lcaseFieldKey = (this.get('fieldKey') || '').toLowerCase()
 
     if (lcaseFieldKey.includes('password')) {
       return 'password'
@@ -64,7 +64,7 @@ export default Ember.Component.extend({
   }),
 
   errors: Ember.computed(function () {
-    return []
+    return Ember.A()
   }),
 
   hasError: Ember.computed.notEmpty('errors'),

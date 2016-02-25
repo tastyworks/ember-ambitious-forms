@@ -6,7 +6,7 @@ let FmForm = Ember.Component.extend({
 
   // TODO: figure out a better way to do this
   fmFields: Ember.computed(function () {
-    return []
+    return Ember.A()
   }),
 
   fmFieldsWithError: Ember.computed.filterBy('fmFields', 'hasError'),
