@@ -1,36 +1,27 @@
 import Ember from 'ember'
 
+export let Option = Ember.Object.extend({
+  selected: Ember.computed('value', 'source.value', function () {
+    return this.get('value') === this.get('source.value')
+  })
+})
+
 export default Ember.Mixin.create({
   optionsConverted: Ember.computed('options.[]', function () {
-    // not dependent on 'value' because we manually observe those changes
-    let selectedValue = this.get('value')
-    let options = this.get('options')
-
-    return options.map((option, index) => {
+    return this.get('options').map((option, index) => {
       if (Ember.isArray(option)) {
-        return Ember.Object.create({
+        return Option.create({
           value: option[0],
           text: option[1],
-          selected: selectedValue === option[0]
+          source: this
         })
       } else {
-        return Ember.Object.create({
+        return Option.create({
           value: option,
           text: option,
-          selected: selectedValue === option
+          source: this
         })
       }
     })
-  }),
-
-  _optionsConvertedSelectedObserver: Ember.observer('value', function () {
-    let selectedValue = this.get('value')
-    let optionsConverted = this.get('optionsConverted')
-
-    optionsConverted.beginPropertyChanges()
-    for (let option of optionsConverted) {
-      option.set('selected', selectedValue === option.value)
-    }
-    optionsConverted.endPropertyChanges()
   })
 })
