@@ -2,7 +2,7 @@ import Ember from 'ember'
 
 export default Ember.Component.extend({
   tagName: 'label',
-  classNames: 'fm-checkbox',
+  classNames: 'af-checkbox',
   classNameBindings: 'value:checked:unchecked',
 
   click (event) {

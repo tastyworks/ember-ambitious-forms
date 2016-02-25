@@ -1,8 +1,8 @@
 import Ember from 'ember'
 
-import FmLoc from './loc'
+import Loc from './loc'
 
-export default Ember.Mixin.create(FmLoc, {
+export default Ember.Mixin.create(Loc, {
   i18n: Ember.inject.service(),
 
   label: Ember.computed('i18n', function () {

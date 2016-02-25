@@ -1,6 +1,6 @@
-# Fm
+# ember-ambitious-forms
 
-This README outlines the details of collaborating on this Ember addon.
+Ambitious, flexible, (mostly) *un*opinionated form helpers.
 
 ## Installation
 

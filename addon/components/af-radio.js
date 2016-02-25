@@ -2,7 +2,7 @@ import Ember from 'ember'
 
 export default Ember.Component.extend({
   tagName: 'label',
-  classNames: 'fm-radio',
+  classNames: 'af-radio',
   classNameBindings: 'checked:checked:unchecked',
 
   checked: Ember.computed('value', 'selectedValue', function () {

@@ -1,13 +1,13 @@
-<span class='fm-header {{headerClass}}'>
+<span class='af-header {{headerClass}}'>
   {{#if label}}
-    <span class='fm-label {{labelClass}}'>{{label}}</span>
+    <span class='af-label {{labelClass}}'>{{label}}</span>
   {{/if}}
   {{#if hint}}
-    <em class='fm-hint {{hintClass}}'>{{hint}}</em>
+    <em class='af-hint {{hintClass}}'>{{hint}}</em>
   {{/if}}
 </span>
 
-<span class='fm-body'>
+<span class='af-body'>
   {{#if hasBlock}}
     {{yield value}}
   {{else}}
@@ -16,5 +16,5 @@
 </span>
 
 {{#if showError}}
-  <span class='fm-error {{errorClass}}'>{{errors}}</span>
+  <span class='af-error {{errorClass}}'>{{errors}}</span>
 {{/if}}

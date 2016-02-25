@@ -3,7 +3,7 @@ import OptionsConverted from '../mixins/options-converted'
 
 export default Ember.Component.extend(OptionsConverted, {
   tagName: 'span',
-  classNames: ['fm-radio-group'],
+  classNames: ['af-radio-group'],
 
   name: Ember.computed.oneWay('elementId'),
 

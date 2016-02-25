@@ -1,21 +1,21 @@
 import Ember from 'ember'
 
 export default Ember.Component.extend({
-  service: Ember.inject.service('fm'),
+  service: Ember.inject.service('ambitious-forms'),
 
   tagName: 'label',
-  classNames: ['fm-field'],
+  classNames: ['af-field'],
 
   // TODO: figure out a better way to do this
   _onWillInsertElement: Ember.on('willInsertElement', function () {
-    let fmForm = this.get('fmForm')
-    fmForm && fmForm.addField(this)
+    let afForm = this.get('afForm')
+    afForm && afForm.addField(this)
   }),
 
   // TODO: figure out a better way to do this
   _onWillDestroyElement: Ember.on('willDestroyElement', function () {
-    let fmForm = this.get('fmForm')
-    fmForm && fmForm.removeField(this)
+    let afForm = this.get('afForm')
+    afForm && afForm.removeField(this)
   }),
 
   type: Ember.computed('options.length', 'fieldType', 'fieldKey', function () {
@@ -61,8 +61,8 @@ export default Ember.Component.extend({
 
     return customTypeComponents[type] ||
       this._asComponent(type) ||
-      this._asComponent(`fm-${type}`) ||
-      'fm-input'
+      this._asComponent(`af-${type}`) ||
+      'af-input'
   }),
 
   errors: Ember.computed(function () {
@@ -88,9 +88,9 @@ export default Ember.Component.extend({
   labelClass: Ember.computed('required', function () {
     let required = this.get('required')
     if (required === true) {
-      return 'fm-required'
+      return 'af-required'
     } else if (required) {
-      return `fm-required-${required}`
+      return `af-required-${required}`
     }
   }),
 
