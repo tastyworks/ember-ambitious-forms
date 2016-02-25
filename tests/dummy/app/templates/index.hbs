@@ -1,4 +1,8 @@
 <h1>Welcome to <code>fm-form</code>!</h1>
 {{#fm-form as |fm|}}
-  {{fm.field label='Hello'}}
+  {{fm.field label='Name'}}
+  {{fm.field label='Address' hint='hint'}}
+  {{fm.field label='Phone' placeholder='(XXX) XXX-XXXX'}}
+  {{fm.field label='Ready?' options=options}}
+  {{fm.field label='Set?' options=options type='radio-group'}}
 {{/fm-form}}
