@@ -13,8 +13,12 @@ export default Ember.Mixin.create({
     return `${this.get('locKey')}.placeholder`
   }),
 
-  locOptionsKey: Ember.computed('locKey', function () {
-    return `${this.get('locKey')}.options`
+  locOptionsKey: Ember.computed('fieldType', 'locKey', function () {
+    if (this.get('fieldType') === 'boolean') {
+      return 'af.common.options.boolean'
+    } else {
+      return `${this.get('locKey')}.options`
+    }
   }),
 
   locKey: Ember.computed('locKey', function () {
