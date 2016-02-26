@@ -7,15 +7,10 @@ export default Ember.Mixin.create({
   _modelMeta: Ember.computed.readOnly('scope.constructor'),
   scopeName: Ember.computed.readOnly('_modelMeta.resourceName'),
 
+  fieldType: computedIndirect('_fieldTypeKey'),
   _fieldTypeKey: Ember.computed('fieldKey', function () {
     return `_modelMeta.fields.${this.get('fieldKey')}.type`
   }),
-  fieldType: computedIndirect('_fieldTypeKey'),
-
-  _valueKey: Ember.computed('fieldKey', function () {
-    return `model.${this.get('fieldKey')}`
-  }),
-  value: computedIndirect('_valueKey'),
 
   _didUpdate: Ember.observer('value', function () {
     let model = this.get('model')

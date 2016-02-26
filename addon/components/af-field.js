@@ -1,4 +1,5 @@
 import Ember from 'ember'
+import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
 export default Ember.Component.extend({
   service: Ember.inject.service('ambitious-forms'),
@@ -16,6 +17,11 @@ export default Ember.Component.extend({
   _onWillDestroyElement: Ember.on('willDestroyElement', function () {
     let afForm = this.get('afForm')
     afForm && afForm.removeField(this)
+  }),
+
+  value: computedIndirect('_valueKey'),
+  _valueKey: Ember.computed('fieldKey', function () {
+    return `scope.${this.get('fieldKey')}`
   }),
 
   type: Ember.computed('options.length', 'fieldType', 'fieldKey', function () {
@@ -82,7 +88,7 @@ export default Ember.Component.extend({
   }),
 
   required: false,
-  label: '',
+  label: null,
 
   labelClass: Ember.computed('required', function () {
     let required = this.get('required')
