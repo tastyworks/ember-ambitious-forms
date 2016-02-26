@@ -11,7 +11,11 @@
   {{#if hasBlock}}
     {{yield value}}
   {{else}}
-    {{component inputComponent class=inputClass value=value type=type options=options prompt=prompt placeholder=placeholder}}
+    {{#if inputComponent}}
+      {{component inputComponent class=inputClass value=value options=options prompt=prompt}}
+    {{else}}
+      {{input class=(concat 'af-input' inputClass) value=value type=type placeholder=placeholder}}
+    {{/if}}
   {{/if}}
 </span>
 

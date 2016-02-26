@@ -61,8 +61,7 @@ export default Ember.Component.extend({
 
     return customTypeComponents[type] ||
       this._asComponent(type) ||
-      this._asComponent(`af-${type}`) ||
-      'af-input'
+      this._asComponent(`af-${type}`)
   }),
 
   errors: Ember.computed(function () {
