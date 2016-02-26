@@ -21,7 +21,7 @@ export default Ember.Mixin.create({
     }
   }),
 
-  locKey: Ember.computed('locKey', function () {
+  label: Ember.computed('locKey', function () {
     return Ember.String.loc(this.get('locKey'))
   }),
 
