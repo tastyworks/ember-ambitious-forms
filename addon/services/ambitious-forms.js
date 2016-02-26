@@ -11,11 +11,10 @@ const AF_FIELD_MIXINS = { i18n, loc, restless, validations }
 
 export default Ember.Service.extend({
   defaultPrompt: 'Select',
-  fieldPlugins: Ember.A(),
-
-  _loadFieldPlugins: Ember.on('init', function () {
+}).reopenClass({
+  useFieldPlugins (...plugins) {
     // TODO: localize plugins instead of tossing them onto the base class
-    for (let plugin of this.get('fieldPlugins')) {
+    for (let plugin of plugins) {
       if (plugin instanceof Ember.Mixin) {
         AFField.reopen(plugin)
       } else if (AF_FIELD_MIXINS[plugin]) {
@@ -24,5 +23,5 @@ export default Ember.Service.extend({
         Ember.warn(`Not a valid plugin: ${plugin}`)
       }
     }
-  })
+  }
 })
