@@ -19,6 +19,11 @@ export default Ember.Component.extend({
     afForm && afForm.removeField(this)
   }),
 
+  // Default to store everything on the component
+  scope: Ember.computed('_baseScope', function () {
+    return this.get('_baseScope') || this
+  }),
+
   value: computedIndirect('_valueKey'),
   _valueKey: Ember.computed('fieldKey', function () {
     return `scope.${this.get('fieldKey')}`
