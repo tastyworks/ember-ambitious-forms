@@ -1,7 +1,6 @@
 import Ember from 'ember'
 
 export default Ember.Component.extend({
-  tagName: 'form',
   classNames: 'af-form',
 
   // TODO: figure out a better way to do this
@@ -34,13 +33,15 @@ export default Ember.Component.extend({
     this.scrollTo(fields.objectAt(0), { paddingTop: 20 })
   },
 
-  submit () {
-    if (this.get('hasError')) {
-      this.showFieldErrors()
-      this.sendAction('error')
-    } else {
-      this.sendAction('submit')
-      this.sendAction()
+  actions: {
+    domSubmit () {
+      if (this.get('hasError')) {
+        this.showFieldErrors()
+        this.sendAction('error')
+      } else {
+        this.sendAction('submit')
+        this.sendAction()
+      }
     }
   }
 })
