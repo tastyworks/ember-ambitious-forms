@@ -1,8 +1,8 @@
 import Ember from 'ember'
 
 export default Ember.Mixin.create({
-  locKey: Ember.computed('modelName', 'fieldKey', function () {
-    return `af.${this.get('modelName')}.${this.get('fieldKey')}`
+  locKey: Ember.computed('scopeName', 'fieldKey', function () {
+    return `af.${this.get('scopeName')}.${this.get('fieldKey')}`
   }),
 
   locHintKey: Ember.computed('locKey', function () {

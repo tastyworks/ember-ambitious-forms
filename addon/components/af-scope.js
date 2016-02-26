@@ -2,5 +2,5 @@ import Ember from 'ember'
 
 export default Ember.Component.extend({
 }).reopenClass({
-  positionalParams: ['model']
+  positionalParams: ['scope']
 })

@@ -2,8 +2,10 @@ import Ember from 'ember'
 import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
 export default Ember.Mixin.create({
-  _modelMeta: Ember.computed.readOnly('model.constructor'),
-  modelName: Ember.computed.readOnly('_modelMeta.resourceName'),
+  model: Ember.computed.alias('scope'),
+
+  _modelMeta: Ember.computed.readOnly('scope.constructor'),
+  scopeName: Ember.computed.readOnly('_modelMeta.resourceName'),
 
   _fieldTypeKey: Ember.computed('fieldKey', function () {
     return `_modelMeta.fields.${this.get('fieldKey')}.type`
