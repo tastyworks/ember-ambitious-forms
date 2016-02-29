@@ -1,4 +1,4 @@
-<h1>Welcome to <code>af-form</code>!</h1>
+<h1>Welcome to <code>ember-ambitious-forms</code>!</h1>
 
 {{#af-form submit='formSubmit' error='formError' as |af|}}
   {{af.field label='Email'}}
@@ -6,7 +6,8 @@
   {{af.field label='Address' hint='hint'}}
   {{af.field label='Phone' placeholder='(XXX) XXX-XXXX'}}
   {{af.field label='Ready?' value=true options=options}}
-  {{af.field label='Set?' options=options type='radio-group'}}
+  {{af.field label='Set?' value=false options=options type='radio-group'}}
+  {{af.field label='Go?' type='checkbox'}}
 
   <button>Submit</button>
 {{/af-form}}
