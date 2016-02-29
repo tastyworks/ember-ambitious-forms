@@ -1,5 +1,5 @@
 {{#each optionsConverted as |option|}}
-  {{#af-radio name=name value=option.value selectedValue=value}}
+  {{#af-radio name=name value=option.value selectedValue=value action='radioChange'}}
     {{option.text}}
   {{/af-radio}}
 {{/each}}

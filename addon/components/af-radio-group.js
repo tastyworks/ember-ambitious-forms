@@ -10,6 +10,7 @@ export default Ember.Component.extend(OptionsConverted, {
   actions: {
     radioChange (value) {
       this.set('value', value)
+      this.sendAction('action', value)
     }
   }
 })
