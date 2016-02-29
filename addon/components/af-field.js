@@ -1,4 +1,5 @@
 import Ember from 'ember'
+import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
 export default Ember.Component.extend({
   service: Ember.inject.service('ambitious-forms'),
@@ -64,9 +65,18 @@ export default Ember.Component.extend({
       this._asComponent(`af-${type}`)
   }),
 
+  value: computedIndirect('_valueKey'),
+  _valueKey: Ember.computed('scope', 'fieldKey', function () {
+    if (this.get('scope')) {
+      return `scope.${this.get('fieldKey')}`
+    } else {
+      // Scope does not exist. Stick it on current component instance instead
+      return '_value'
+    }
+  }),
+
   hasError: Ember.computed.notEmpty('errors'),
   errors: null,
-  value: null,
 
   // show errors only after form was pinged to hide initial errors
   hideError: true,

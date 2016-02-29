@@ -12,11 +12,6 @@ export default Ember.Mixin.create({
     return `_modelMeta.fields.${this.get('fieldKey')}.type`
   }),
 
-  value: computedIndirect('_valueKey'),
-  _valueKey: Ember.computed('fieldKey', function () {
-    return `scope.${this.get('fieldKey')}`
-  }),
-
   _didUpdate: Ember.observer('value', function () {
     let model = this.get('model')
     if (model.trigger) {

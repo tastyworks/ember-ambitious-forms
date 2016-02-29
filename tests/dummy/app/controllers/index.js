@@ -1,15 +1,25 @@
 import Ember from 'ember'
 
 export default Ember.Controller.extend({
-  options: Ember.A([true, false]),
+  init () {
+    this._super()
+  },
+
+  formParams: Ember.computed(function () {
+    window.foo = {}
+    console.log(window.foo)
+    return window.foo
+  }),
+
+  boolOpts: Ember.A([true, false]),
 
   actions: {
-    formSubmit () {
-      console.log('Success!')
+    formSubmit (params) {
+      console.log('Success!', JSON.stringify(params))
     },
 
-    formError () {
-      console.warn('Failure!')
+    formError (params) {
+      console.warn('Failure!', JSON.stringify(params))
     }
   }
 })
