@@ -19,11 +19,6 @@ export default Ember.Component.extend({
     afForm && afForm.removeField(this)
   }),
 
-  // Default to store everything on the component
-  scope: Ember.computed('_baseScope', function () {
-    return this.get('_baseScope') || this
-  }),
-
   type: Ember.computed('options.length', 'fieldType', 'fieldKey', function () {
     if (this.get('options.length') > 0) {
       return 'select'
@@ -70,11 +65,9 @@ export default Ember.Component.extend({
       this._asComponent(`af-${type}`)
   }),
 
-  errors: Ember.computed(function () {
-    return Ember.A()
-  }),
-
   hasError: Ember.computed.notEmpty('errors'),
+  errors: null,
+  value: null,
 
   // show errors only after form was pinged to hide initial errors
   hideError: true,
