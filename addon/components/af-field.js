@@ -24,11 +24,6 @@ export default Ember.Component.extend({
     return this.get('_baseScope') || this
   }),
 
-  value: computedIndirect('_valueKey'),
-  _valueKey: Ember.computed('fieldKey', function () {
-    return `scope.${this.get('fieldKey')}`
-  }),
-
   type: Ember.computed('options.length', 'fieldType', 'fieldKey', function () {
     if (this.get('options.length') > 0) {
       return 'select'
