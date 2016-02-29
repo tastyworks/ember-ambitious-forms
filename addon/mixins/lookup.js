@@ -48,7 +48,7 @@ export default Ember.Mixin.create({
     }
 
     return optionValues.map((value) => {
-      let key = `${lookupOptionsKey}.${value.toString().camelize()}`
+      let key = `${lookupOptionsKey}.${Ember.String.camelize(value.toString())}`
       return this._lookupExists(key) ? [value, this._lookup(key)] : value
     })
   })
