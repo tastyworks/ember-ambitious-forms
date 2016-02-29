@@ -1,18 +1,18 @@
 body {
-  width: 600px
-  margin: 0 auto
+  width: 600px;
+  margin: 0 auto;
 }
 
 .af-field {
-  display: block
+  display: block;
 }
 
 .af-header {
-  display: inline-block
-  width: 30%
-  text-align: right
+  display: inline-block;
+  width: 30%;
+  text-align: right;
 }
 
 button {
-  margin-left: 30%
+  margin-left: 30%;
 }
