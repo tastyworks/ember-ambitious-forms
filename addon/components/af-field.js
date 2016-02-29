@@ -1,5 +1,4 @@
 import Ember from 'ember'
-import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
 export default Ember.Component.extend({
   service: Ember.inject.service('ambitious-forms'),

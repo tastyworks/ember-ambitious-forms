@@ -1,7 +1,7 @@
 import Ember from 'ember'
 import Lookup from './lookup'
 
-export default Ember.Mixin.create({
+export default Ember.Mixin.create(Lookup, {
   _lookup (key) {
     return Ember.String.loc(key)
   },

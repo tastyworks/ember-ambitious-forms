@@ -10,7 +10,7 @@ import validations from '../mixins/validations'
 const AF_FIELD_MIXINS = { i18n, loc, restless, validations }
 
 export default Ember.Service.extend({
-  defaultPrompt: 'Select',
+  defaultPrompt: 'Select'
 }).reopenClass({
   useFieldPlugins (...plugins) {
     // TODO: localize plugins instead of tossing them onto the base class
