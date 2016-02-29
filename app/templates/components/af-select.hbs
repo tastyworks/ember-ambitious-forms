@@ -1,4 +1,4 @@
-<select class='af-select-input' change='selectChange'>
+<select class='af-select-input' onchange={{action 'selectChange' value='target.value'}}>
   {{#if prompt}}
     <option>{{prompt}}</option>
   {{/if}}

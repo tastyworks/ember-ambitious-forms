@@ -9,8 +9,7 @@ export default Ember.Component.extend(OptionsConverted, {
 
   prompt: Ember.computed.oneWay('service.defaultPrompt'),
   actions: {
-    selectChange () {
-      let formValue = this.$('.af-select-input').val()
+    selectChange (formValue) {
       // formValue is always a string so we have to compare the string value
       let option = this.get('optionsConverted').find((o) => formValue === o.value.toString())
       let value = option ? option.value : null
