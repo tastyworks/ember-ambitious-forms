@@ -7,48 +7,48 @@ export default Ember.Mixin.create({
     }
   },
 
-  _lookupKey: Ember.computed('scopeName', 'fieldKey', function () {
+  lookupKey: Ember.computed('scopeName', 'fieldKey', function () {
     return `af.${this.get('scopeName')}.${this.get('fieldKey')}`
   }),
 
-  _lookupHintKey: Ember.computed('_lookupKey', function () {
-    return `${this.get('_lookupKey')}.hint`
+  lookupHintKey: Ember.computed('lookupKey', function () {
+    return `${this.get('lookupKey')}.hint`
   }),
 
-  _lookupPlaceholderKey: Ember.computed('_lookupKey', function () {
-    return `${this.get('_lookupKey')}.placeholder`
+  lookupPlaceholderKey: Ember.computed('lookupKey', function () {
+    return `${this.get('lookupKey')}.placeholder`
   }),
 
-  _lookupOptionsKey: Ember.computed('fieldType', '_lookupKey', function () {
+  lookupOptionsKey: Ember.computed('fieldType', 'lookupKey', function () {
     if (this.get('fieldType') === 'boolean') {
       return 'af.common.options.boolean'
     } else {
-      return `${this.get('_lookupKey')}.options`
+      return `${this.get('lookupKey')}.options`
     }
   }),
 
-  label: Ember.computed('_lookupKey', function () {
-    return this._lookup(this.get('_lookupKey'))
+  label: Ember.computed('lookupKey', function () {
+    return this._lookup(this.get('lookupKey'))
   }),
 
-  hint: Ember.computed('_lookupHintKey', function () {
-    return this._lookupOptional(this.get('_lookupHintKey'))
+  hint: Ember.computed('lookupHintKey', function () {
+    return this._lookupOptional(this.get('lookupHintKey'))
   }),
 
-  placeholder: Ember.computed('_lookupPlaceholderKey', function () {
-    return this._lookupOptional(this.get('_lookupPlaceholderKey'))
+  placeholder: Ember.computed('lookupPlaceholderKey', function () {
+    return this._lookupOptional(this.get('lookupPlaceholderKey'))
   }),
 
-  options: Ember.computed('optionValues', '_lookupOptionsKey', function () {
+  options: Ember.computed('optionValues', 'lookupOptionsKey', function () {
     let optionValues = this.get('optionValues')
-    let _lookupOptionsKey = this.get('_lookupOptionsKey')
+    let lookupOptionsKey = this.get('lookupOptionsKey')
 
     if (!optionValues) {
       return
     }
 
     return optionValues.map((value) => {
-      let key = `${_lookupOptionsKey}.${value.toString().camelize()}`
+      let key = `${lookupOptionsKey}.${value.toString().camelize()}`
       return this._lookupExists(key) ? [value, this._lookup(key)] : value
     })
   })
