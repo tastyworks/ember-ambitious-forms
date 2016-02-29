@@ -27,19 +27,19 @@ export default Ember.Mixin.create({
     }
   }),
 
-  label: Ember.computed('lookupKey', function () {
+  label: Ember.computed('_lookupCache', 'lookupKey', function () {
     return this._lookup(this.get('lookupKey'))
   }),
 
-  hint: Ember.computed('lookupHintKey', function () {
+  hint: Ember.computed('_lookupCache', 'lookupHintKey', function () {
     return this._lookupOptional(this.get('lookupHintKey'))
   }),
 
-  placeholder: Ember.computed('lookupPlaceholderKey', function () {
+  placeholder: Ember.computed('_lookupCache', 'lookupPlaceholderKey', function () {
     return this._lookupOptional(this.get('lookupPlaceholderKey'))
   }),
 
-  options: Ember.computed('optionValues', 'lookupOptionsKey', function () {
+  options: Ember.computed('_lookupCache', 'optionValues', 'lookupOptionsKey', function () {
     let optionValues = this.get('optionValues')
     let lookupOptionsKey = this.get('lookupOptionsKey')
 
