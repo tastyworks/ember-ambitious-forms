@@ -7,8 +7,12 @@ export default Ember.Mixin.create({
     }
   },
 
+  lookupKeyConvert: Ember.String.dasherize,
+
   lookupKey: Ember.computed('scopeName', 'fieldKey', function () {
-    return `af.${this.get('scopeName')}.${this.get('fieldKey')}`
+    let convertedScopeName = this.lookupKeyConvert(this.get('scopeName'))
+    let convertedFieldKey = this.lookupKeyConvert(this.get('convertedFieldKey'))
+    return `af.${convertedScopeName}.${convertedfieldKey}`
   }),
 
   lookupHintKey: Ember.computed('lookupKey', function () {
@@ -48,7 +52,7 @@ export default Ember.Mixin.create({
     }
 
     return optionValues.map((value) => {
-      let key = `${lookupOptionsKey}.${Ember.String.camelize(value.toString())}`
+      let key = `${lookupOptionsKey}.${this.lookupKeyConvert(value.toString())}`
       return this._lookupExists(key) ? [value, this._lookup(key)] : value
     })
   })
