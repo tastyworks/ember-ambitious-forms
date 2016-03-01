@@ -1,6 +1,13 @@
 import Ember from 'ember'
 import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
+export const DEFAULT_CONFIG = {
+  fieldTypeMappings: {
+    number: { component: 'number' },
+    boolean: { component: 'checkbox' }
+  }
+}
+
 export default Ember.Component.extend({
   service: Ember.inject.service('ambitious-forms'),
 
@@ -21,7 +28,7 @@ export default Ember.Component.extend({
 
   _fieldTypeConfig (configName) {
     let fieldType = this.get('fieldType')
-    return this.get(`constructor.fieldTypeMappings.${fieldType}.${configName}`)
+    return this.get(`service.config.fieldTypeMappings.${fieldType}.${configName}`)
   },
 
   type: Ember.computed('options.length', 'fieldType', 'fieldKey', function () {
@@ -108,20 +115,12 @@ export default Ember.Component.extend({
   hintClass: null,
   hint: null,
 
-  prompt: Ember.computed.oneWay('service.defaultPrompt'),
+  prompt: Ember.computed.oneWay('service.config.prompt'),
   options: Ember.computed.alias('optionValues'),
 
   optionValues: Ember.computed('fieldType', function () {
     return this._fieldTypeConfig('options')
   })
 }).reopenClass({
-  positionalParams: ['fieldKey'],
-  config (options) {
-    // Deep extend does not exist in Ember/ES6 :(
-    return window.$.extend(true, this, options)
-  },
-  fieldTypeMappings: {
-    number: { component: 'number' },
-    boolean: { component: 'checkbox' }
-  }
+  positionalParams: ['fieldKey']
 })

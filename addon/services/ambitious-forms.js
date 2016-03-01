@@ -1,6 +1,6 @@
 import Ember from 'ember'
 
-import AFField from '../components/af-field'
+import AFField, { DEFAULT_CONFIG as FIELD_DEFAULT_CONFIG } from '../components/af-field'
 
 import i18n from '../mixins/i18n'
 import loc from '../mixins/loc'
@@ -10,18 +10,32 @@ import validations from '../mixins/validations'
 const AF_FIELD_MIXINS = { i18n, loc, restless, validations }
 
 export default Ember.Service.extend({
-  defaultPrompt: 'Select'
+  config: Ember.computed.alias('constructor.config')
 }).reopenClass({
-  useFieldPlugins (...plugins) {
-    // TODO: localize plugins instead of tossing them onto the base class
-    for (let plugin of plugins) {
-      if (plugin instanceof Ember.Mixin) {
-        AFField.reopen(plugin)
-      } else if (AF_FIELD_MIXINS[plugin]) {
-        AFField.reopen(AF_FIELD_MIXINS[plugin])
-      } else {
-        Ember.warn(`Not a valid plugin: ${plugin}`)
+  // TODO: figure out config on the instance
+  config: Object.assign({}, FIELD_DEFAULT_CONFIG, {
+    prompt: 'Select'
+  }),
+  configure (arg) {
+    if (typeof arg === 'function') {
+      arg.call(this.config)
+    } else {
+      Ember.$.extend(true, this.config, arg)
+    }
+
+    if (this.config.fieldPlugins) {
+      // TODO: localize plugin logic instead of tossing them onto the base class
+      for (let plugin of this.config.fieldPlugins) {
+        if (plugin instanceof Ember.Mixin) {
+          AFField.reopen(plugin)
+        } else if (AF_FIELD_MIXINS[plugin]) {
+          AFField.reopen(AF_FIELD_MIXINS[plugin])
+        } else {
+          Ember.warn(`Not a valid plugin: ${plugin}`)
+        }
       }
     }
+
+    return this
   }
 })

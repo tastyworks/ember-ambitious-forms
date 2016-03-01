@@ -7,7 +7,7 @@ export default Ember.Component.extend(OptionsConverted, {
   tagName: 'span',
   classNames: 'af-select',
 
-  prompt: Ember.computed.oneWay('service.defaultPrompt'),
+  prompt: Ember.computed.oneWay('service.config.prompt'),
   actions: {
     selectChange (formValue) {
       // formValue is always a string so we have to compare the string value
