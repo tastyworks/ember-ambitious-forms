@@ -11,8 +11,8 @@ export default Ember.Mixin.create({
 
   lookupKey: Ember.computed('scopeName', 'fieldKey', function () {
     let convertedScopeName = this.lookupKeyConvert(this.get('scopeName'))
-    let convertedFieldKey = this.lookupKeyConvert(this.get('convertedFieldKey'))
-    return `af.${convertedScopeName}.${convertedfieldKey}`
+    let convertedFieldKey = this.lookupKeyConvert(this.get('fieldKey'))
+    return `af.${convertedScopeName}.${convertedFieldKey}`
   }),
 
   lookupHintKey: Ember.computed('lookupKey', function () {
@@ -24,8 +24,9 @@ export default Ember.Mixin.create({
   }),
 
   lookupOptionsKey: Ember.computed('fieldType', 'lookupKey', function () {
-    if (this.get('fieldType') === 'boolean') {
-      return 'af.common.options.boolean'
+    let fieldTypeKey = this._fieldTypeConfig('lookupOptionsKey')
+    if (fieldTypeKey) {
+      return fieldTypeKey
     } else {
       return `${this.get('lookupKey')}.options`
     }

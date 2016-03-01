@@ -19,13 +19,19 @@ export default Ember.Component.extend({
     afForm && afForm.removeField(this)
   }),
 
+  _fieldTypeConfig (configName) {
+    let fieldType = this.get('fieldType')
+    return this.get(`constructor.fieldTypeMappings.${fieldType}.${configName}`)
+  },
+
   type: Ember.computed('options.length', 'fieldType', 'fieldKey', function () {
-    if (this.get('options.length') > 0) {
-      return 'select'
+    let fieldTypeComponent = this._fieldTypeConfig('component')
+    if (fieldTypeComponent) {
+      return fieldTypeComponent
     }
 
-    if (this.get('fieldType') === 'number') {
-      return 'number'
+    if (this.get('options.length') > 0) {
+      return 'select'
     }
 
     let lcaseFieldKey = (this.get('fieldKey') || '').toLowerCase()
@@ -56,12 +62,10 @@ export default Ember.Component.extend({
     return this._isComponent(name) ? name : null
   },
 
-  inputComponent: Ember.computed('type', 'constructor.customTypeComponents', function () {
+  inputComponent: Ember.computed('type', function () {
     let type = this.get('type')
-    let customTypeComponents = this.get('constructor.customTypeComponents')
 
-    return customTypeComponents[type] ||
-      this._asComponent(type) ||
+    return this._asComponent(type) ||
       this._asComponent(`af-${type}`)
   }),
 
@@ -108,11 +112,16 @@ export default Ember.Component.extend({
   options: Ember.computed.alias('optionValues'),
 
   optionValues: Ember.computed('fieldType', function () {
-    if (this.get('fieldType') === 'boolean') {
-      return [true, false]
-    }
+    return this._fieldTypeConfig('options')
   })
 }).reopenClass({
   positionalParams: ['fieldKey'],
-  customTypeComponents: {}
+  config (options) {
+    // Deep extend does not exist in Ember/ES6 :(
+    return window.$.extend(true, this, options)
+  },
+  fieldTypeMappings: {
+    number: { component: 'number' },
+    boolean: { component: 'checkbox' }
+  }
 })
