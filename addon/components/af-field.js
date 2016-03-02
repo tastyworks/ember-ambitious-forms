@@ -3,8 +3,8 @@ import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
 export const DEFAULT_CONFIG = {
   fieldTypeMappings: {
-    number: { component: 'number' },
-    boolean: { component: 'checkbox' }
+    number: { type: 'number' },
+    boolean: { type: 'checkbox' }
   }
 }
 
@@ -32,7 +32,7 @@ export default Ember.Component.extend({
   },
 
   type: Ember.computed('options.length', 'fieldType', 'fieldKey', function () {
-    let fieldTypeComponent = this._fieldTypeConfig('component')
+    let fieldTypeComponent = this._fieldTypeConfig('type')
     if (fieldTypeComponent) {
       return fieldTypeComponent
     }
