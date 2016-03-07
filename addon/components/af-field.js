@@ -3,7 +3,6 @@ import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
 export const DEFAULT_CONFIG = {
   fieldTypeMappings: {
-    number: { type: 'number' },
     boolean: { type: 'checkbox' }
   }
 }
