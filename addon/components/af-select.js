@@ -2,7 +2,7 @@ import Ember from 'ember'
 import OptionsConverted from '../mixins/options-converted'
 
 export default Ember.Component.extend(OptionsConverted, {
-  service: Ember.inject.service('ambitious-forms'),
+  service: Ember.inject.service('ember-ambitious-forms'),
 
   tagName: 'span',
   classNames: 'af-select',

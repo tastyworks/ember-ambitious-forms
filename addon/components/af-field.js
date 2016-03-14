@@ -8,7 +8,7 @@ export const DEFAULT_CONFIG = {
 }
 
 export default Ember.Component.extend({
-  service: Ember.inject.service('ambitious-forms'),
+  service: Ember.inject.service('ember-ambitious-forms'),
 
   tagName: 'label',
   classNames: ['af-field'],

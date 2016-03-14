@@ -10,9 +10,6 @@ import validations from '../mixins/validations'
 const AF_FIELD_MIXINS = { i18n, loc, restless, validations }
 
 export default Ember.Service.extend({
-  config: Ember.computed.alias('constructor.config')
-}).reopenClass({
-  // TODO: figure out config on the instance
   config: Object.assign({}, FIELD_DEFAULT_CONFIG, {
     prompt: 'Select'
   }),
