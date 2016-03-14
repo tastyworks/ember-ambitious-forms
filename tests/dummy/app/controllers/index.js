@@ -6,9 +6,7 @@ export default Ember.Controller.extend({
   },
 
   formParams: Ember.computed(function () {
-    window.foo = {}
-    console.log(window.foo)
-    return window.foo
+    return {}
   }),
 
   boolOpts: Ember.A([true, false]),
