@@ -28,7 +28,7 @@ export default Ember.Mixin.create({
       return !inclusionFilter.allowBlank
     }
 
-    return validationScope.get(`validations.${fieldKey}.presence`)
+    return Boolean(validationScope.get(`validations.${fieldKey}.presence`))
   }),
 
   optionValues: Ember.computed('validationScope', 'fieldKey', function () {
