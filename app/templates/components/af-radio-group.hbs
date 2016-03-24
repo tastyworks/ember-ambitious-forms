@@ -1,5 +1,8 @@
 {{#each optionsConverted as |option|}}
   {{#af-radio name=name value=option.value selectedValue=value action='radioChange'}}
     {{option.text}}
+    {{#if option.description}}
+      <span class='af-radio-description'>{{option.description}}</span>
+    {{/if}}
   {{/af-radio}}
 {{/each}}

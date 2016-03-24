@@ -3,6 +3,11 @@
     <option>{{prompt}}</option>
   {{/if}}
   {{#each optionsConverted as |option|}}
-    <option selected={{option.selected}} value={{option.value}}>{{option.text}}</option>
+    <option selected={{option.selected}} value={{option.value}}>
+      {{option.text}}
+      {{#if option.description}}
+        - {{option.description}}
+      {{/if}}
+    </option>
   {{/each}}
 </select>

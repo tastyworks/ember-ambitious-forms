@@ -24,12 +24,11 @@ export default Ember.Mixin.create({
   }),
 
   lookupOptionsKey: Ember.computed('fieldType', 'lookupKey', function () {
-    let fieldTypeKey = this._fieldTypeConfig('lookupOptionsKey')
-    if (fieldTypeKey) {
-      return fieldTypeKey
-    } else {
-      return `${this.get('lookupKey')}.options`
-    }
+    return this._fieldTypeConfig('lookupOptionsKey') || `${this.get('lookupKey')}.options`
+  }),
+
+  lookupOptionDescriptionsKey: Ember.computed('fieldType', 'lookupKey', function () {
+    return this._fieldTypeConfig('lookupOptionsDescriptionKey') || `${this.get('lookupKey')}.option-descriptions`
   }),
 
   label: Ember.computed('_lookupCache', 'lookupKey', function () {
@@ -44,17 +43,31 @@ export default Ember.Mixin.create({
     return this._lookupOptional(this.get('lookupPlaceholderKey'))
   }),
 
-  options: Ember.computed('_lookupCache', 'optionValues', 'lookupOptionsKey', function () {
+  options: Ember.computed('_lookupCache', 'optionValues.[]', 'lookupOptionsKey', 'lookupOptionDescriptionKey', function () {
     let optionValues = this.get('optionValues')
-    let lookupOptionsKey = this.get('lookupOptionsKey')
-
     if (!optionValues) {
       return
     }
 
+    let lookupOptionsKey = this.get('lookupOptionsKey')
+    let lookupOptionDescriptionsKey = this.get('lookupOptionDescriptionsKey')
+
     return optionValues.map((value) => {
-      let key = `${lookupOptionsKey}.${this.lookupKeyConvert(value.toString())}`
-      return this._lookupExists(key) ? [value, this._lookup(key)] : value
+      let option = { value }
+
+      let valueKey = this.lookupKeyConvert(value.toString())
+
+      let textKey = `${lookupOptionsKey}.${valueKey}`
+      if (this._lookupExists(textKey)) {
+        option.text = this._lookup(textKey)
+      }
+
+      let descriptionKey = `${lookupOptionDescriptionsKey}.${valueKey}`
+      if (this._lookupExists(descriptionKey)) {
+        option.description = this._lookup(descriptionKey)
+      }
+
+      return option
     })
   })
 })
