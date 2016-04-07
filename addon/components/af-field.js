@@ -30,6 +30,15 @@ export default Ember.Component.extend({
     return this.get(`service.config.fieldTypeMappings.${fieldType}.${configName}`)
   },
 
+  // See if scope has injection _toString
+  scopeName: Ember.computed('scope.constructor._toString', function () {
+    let matcher = /^.*:([-a-z]+):$/
+    let injectedClassName = this.get('scope.constructor._toString')
+    if (matcher.test(injectedClassName)) {
+      return injectedClassName.replace(matcher, '$1')
+    }
+  }),
+
   type: Ember.computed('options.length', 'fieldType', 'fieldKey', function () {
     let fieldTypeComponent = this._fieldTypeConfig('type')
     if (fieldTypeComponent) {
