@@ -5,7 +5,9 @@ export default Ember.Mixin.create({
   model: Ember.computed.alias('scope'),
 
   _modelMeta: Ember.computed.readOnly('model.constructor'),
-  scopeName: Ember.computed.readOnly('_modelMeta.resourceName'),
+  scopeName: Ember.computed('_modelMeta.resourceName', function () {
+    return this.get('_modelMeta.resourceName') || this._super()
+  }),
 
   fieldType: computedIndirect('_fieldTypeKey'),
   _fieldTypeKey: Ember.computed('fieldKey', function () {
