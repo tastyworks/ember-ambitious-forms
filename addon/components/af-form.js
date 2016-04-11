@@ -33,11 +33,10 @@ export default Ember.Component.extend({
     domSubmit () {
       if (this.get('hasError')) {
         this.showFieldErrors()
-        this.sendAction('error')
+        this.sendAction('error', this)
       } else {
-        let scope = this.get('scope')
-        this.sendAction('submit', scope)
-        this.sendAction('action', scope)
+        this.sendAction('submit', this)
+        this.sendAction('action', this)
       }
     }
   }
