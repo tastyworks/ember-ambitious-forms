@@ -1,6 +1,14 @@
 <span class='af-header {{headerClass}}'>
   {{#if label}}
-    <span class='af-label {{labelClass}}'>{{label}}</span>
+    <span class='af-label {{labelClass}}'>
+      {{#if labelPrefix}}
+        <span class='af-label-prefix {{labelPrefixClass}}'>{{labelPrefix}}</span>
+      {{/if}}
+      {{label}}
+      {{#if labelSuffix}}
+        <span class='af-label-suffix {{labelSuffixClass}}'>{{labelSuffix}}</span>
+      {{/if}}
+    </span>
   {{/if}}
   {{#if hint}}
     <em class='af-hint {{hintClass}}'>{{hint}}</em>
