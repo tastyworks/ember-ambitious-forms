@@ -1,6 +1,8 @@
 import Ember from 'ember'
 import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
+const ALLOW_BLANK_FILTERS = ['exclusion', 'format', 'inclusion', 'length', 'numericality']
+
 export default Ember.Mixin.create({
   validationScope: Ember.computed.oneWay('scope'),
 
@@ -16,16 +18,19 @@ export default Ember.Mixin.create({
     return `validationScope.errors.${this.get('fieldKey')}.[]`
   }),
 
-  required: Ember.computed('validationScope', 'fieldKey', 'options', function () {
+  required: Ember.computed('validationScope', 'fieldKey', function () {
     let validationScope = this.get('validationScope')
     let fieldKey = this.get('fieldKey')
     if (!validationScope || !fieldKey) {
       return
     }
 
-    let inclusionFilter = validationScope.get(`validations.${fieldKey}.inclusion`)
-    if (this.get('options') && inclusionFilter) {
-      return !inclusionFilter.allowBlank
+    for (let i = 0; i < ALLOW_BLANK_FILTERS.length; i++) {
+      let filterName = ALLOW_BLANK_FILTERS[i]
+      let filter = validationScope.get(`validations.${fieldKey}.${filterName}`)
+      if (filter) {
+        return !filter.allowBlank
+      }
     }
 
     return Boolean(validationScope.get(`validations.${fieldKey}.presence`))
