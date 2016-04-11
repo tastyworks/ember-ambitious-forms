@@ -90,7 +90,7 @@ export default Ember.Component.extend({
       return `scope.${this.get('fieldKey')}`
     } else {
       // Scope does not exist. Stick it on current component instance instead
-      return '_value'
+      return '_rawValue'
     }
   }),
 

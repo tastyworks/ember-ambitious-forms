@@ -3,20 +3,16 @@ import Ember from 'ember'
 export default Ember.Component.extend({
   classNames: 'af-form',
 
-  // TODO: figure out a better way to do this
-  afFields: Ember.computed(function () {
-    return Ember.A()
-  }),
-
-  afFieldsWithError: Ember.computed.filterBy('afFields', 'hasError'),
-  hasError: Ember.computed.notEmpty('afFieldsWithError'),
+  fields: Ember.computed(() => Ember.A()),
+  fieldsWithError: Ember.computed.filterBy('fields', 'hasError'),
+  hasError: Ember.computed.notEmpty('fieldsWithError'),
 
   addField (component) {
-    this.get('afFields').addObject(component)
+    this.get('fields').addObject(component)
   },
 
   removeField (component) {
-    this.get('afFields').removeObject(component)
+    this.get('fields').removeObject(component)
   },
 
   scrollTo (component, { paddingTop = 0 } = {}) {
@@ -25,7 +21,7 @@ export default Ember.Component.extend({
   },
 
   showFieldErrors () {
-    let fields = this.get('afFieldsWithError')
+    let fields = this.get('fieldsWithError')
     fields.forEach((field) => {
       field.set('hideError', false)
     })
