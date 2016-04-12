@@ -8,6 +8,19 @@ export default Ember.Component.extend({
   fieldsWithError: Ember.computed.filterBy('fields', 'hasError'),
   haveErrors: Ember.computed.notEmpty('fieldsWithError'),
 
+  _haveErrorsChangedActioner: Ember.observer('haveErrors', function () {
+    this.sendAction('haveErrorsChanged', this, this.get('haveErrors'))
+  }),
+
+  displayFieldErrors () {
+    let fields = this.get('fieldsWithError')
+    fields.forEach((field) => {
+      field.set('hideError', false)
+    })
+
+    this.scrollTo(fields.objectAt(0), { paddingTop: 20 })
+  },
+
   addField (component) {
     if (this.get('showAllErrors')) {
       component.set('hideError', false)
@@ -22,15 +35,6 @@ export default Ember.Component.extend({
   scrollTo (component, { paddingTop = 0 } = {}) {
     let offset = component.$().offset()
     Ember.$('html, body').animate({ scrollTop: offset.top - paddingTop }, 200)
-  },
-
-  displayFieldErrors () {
-    let fields = this.get('fieldsWithError')
-    fields.forEach((field) => {
-      field.set('hideError', false)
-    })
-
-    this.scrollTo(fields.objectAt(0), { paddingTop: 20 })
   },
 
   actions: {
