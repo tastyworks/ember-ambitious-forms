@@ -3,11 +3,15 @@ import Ember from 'ember'
 export default Ember.Component.extend({
   classNames: 'af-form',
 
+  showAllErrors: false,
   fields: Ember.computed(() => Ember.A()),
   fieldsWithError: Ember.computed.filterBy('fields', 'hasError'),
-  hasError: Ember.computed.notEmpty('fieldsWithError'),
+  haveErrors: Ember.computed.notEmpty('fieldsWithError'),
 
   addField (component) {
+    if (this.get('showAllErrors')) {
+      component.set('hideError', false)
+    }
     this.get('fields').addObject(component)
   },
 
@@ -20,7 +24,7 @@ export default Ember.Component.extend({
     Ember.$('html, body').animate({ scrollTop: offset.top - paddingTop }, 200)
   },
 
-  showFieldErrors () {
+  displayFieldErrors () {
     let fields = this.get('fieldsWithError')
     fields.forEach((field) => {
       field.set('hideError', false)
@@ -31,8 +35,8 @@ export default Ember.Component.extend({
 
   actions: {
     domSubmit () {
-      if (this.get('hasError')) {
-        this.showFieldErrors()
+      if (this.get('haveErrors')) {
+        this.displayFieldErrors()
         this.sendAction('error', this)
       } else {
         this.sendAction('submit', this)
