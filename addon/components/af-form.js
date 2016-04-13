@@ -12,13 +12,25 @@ export default Ember.Component.extend({
     this.sendAction('haveErrorsChanged', this, this.get('haveErrors'))
   }),
 
+  _showAllErrorsObserver: Ember.observer('showAllErrors', function () {
+    if (this.get('showAllErrors')) {
+      this.displayFieldErrors()
+    }
+  }),
+
   displayFieldErrors () {
-    let fields = this.get('fieldsWithError')
+    let fields = this.get('fields')
     fields.forEach((field) => {
       field.set('hideError', false)
     })
+  },
 
-    this.scrollTo(fields.objectAt(0), { paddingTop: 20 })
+  scrollToErrorField (index = 0) {
+    let field = this.get('fieldsWithError').objectAt(index)
+    if (field) {
+      let offset = field.$().offset()
+      Ember.$('html, body').animate({ scrollTop: offset.top - 20 }, 200)
+    }
   },
 
   addField (component) {
