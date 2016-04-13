@@ -8,9 +8,19 @@ export default Ember.Component.extend({
   fieldsWithError: Ember.computed.filterBy('fields', 'hasError'),
   haveErrors: Ember.computed.notEmpty('fieldsWithError'),
 
-  _haveErrorsChangedActioner: Ember.observer('haveErrors', function () {
-    this.sendAction('haveErrorsChanged', this, this.get('haveErrors'))
+  _pokeObservedComputed: Ember.on('init', function () {
+    // We need to do this explicitly to force the observers to run.
+    // Computed KVO isn't wired up until a 'get' is run.
+    this.getProperties('haveErrors', 'showAllErrors')
   }),
+
+  _haveErrorsObserver: Ember.observer('haveErrors', function () {
+    Ember.run.scheduleOnce('actions', this, this._sendActionHaveErrorsChanged)
+  }),
+
+  _sendActionHaveErrorsChanged () {
+    this.sendAction('haveErrorsChanged', this, this.get('haveErrors'))
+  },
 
   _showAllErrorsObserver: Ember.observer('showAllErrors', function () {
     if (this.get('showAllErrors')) {
@@ -19,8 +29,7 @@ export default Ember.Component.extend({
   }),
 
   displayFieldErrors () {
-    let fields = this.get('fields')
-    fields.forEach((field) => {
+    this.get('fields').forEach((field) => {
       field.set('hideError', false)
     })
   },
