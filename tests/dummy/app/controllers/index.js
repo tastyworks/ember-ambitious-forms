@@ -1,10 +1,6 @@
 import Ember from 'ember'
 
 export default Ember.Controller.extend({
-  init () {
-    this._super()
-  },
-
   formParams: Ember.computed(function () {
     return {}
   }),
@@ -12,12 +8,12 @@ export default Ember.Controller.extend({
   boolOpts: Ember.A([true, false]),
 
   actions: {
-    formSubmit (params) {
-      console.log('Success!', JSON.stringify(params))
+    formSubmit (afForm) {
+      console.log('Success!', afForm)
     },
 
-    formError (params) {
-      console.warn('Failure!', JSON.stringify(params))
+    formError (afForm) {
+      console.warn('Failure!', afForm)
     }
   }
 })
