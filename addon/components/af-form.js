@@ -29,6 +29,10 @@ export default Ember.Component.extend({
   }),
 
   displayFieldErrors () {
+    Ember.run.scheduleOnce('afterRender', this, this._doDisplayFieldErrors)
+  },
+
+  _doDisplayFieldErrors () {
     this.get('fields').forEach((field) => {
       field.set('hideError', false)
     })
@@ -43,10 +47,13 @@ export default Ember.Component.extend({
   },
 
   addField (component) {
-    if (this.get('showAllErrors')) {
-      component.set('hideError', false)
-    }
     this.get('fields').addObject(component)
+
+    // Ideally this should be a simple .set(), but it plays havoc with displayFieldErrors()
+    // component.set('hideError', false)
+    if (this.get('showAllErrors')) {
+      this.displayFieldErrors()
+    }
   },
 
   removeField (component) {
