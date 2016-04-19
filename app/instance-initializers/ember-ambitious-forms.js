@@ -1,6 +1,16 @@
 import Ember from 'ember'
 import config from '../config/environment'
 
+export function autoDetectFieldPlugins (appInstance) {
+  let potentialPlugins = {
+    i18n: appInstance.hasRegistration('service:i18n'),
+    validations: appInstance.hasRegistration('service:validations'),
+    restless: (typeof RESTless != 'undefined') && (RESTless instanceof Ember.Namespace)
+  }
+
+  return Object.keys(potentialPlugins).filter((key) => potentialPlugins[key])
+}
+
 export function initialize (appInstance) {
   let emberAmbitiousForms = appInstance.lookup('service:ember-ambitious-forms')
   if (config['ember-ambitious-forms']) {
@@ -8,17 +18,8 @@ export function initialize (appInstance) {
   }
 
   if (!Ember.get(config, 'ember-ambitious-forms.fieldPlugins')) {
-    // Detect plugins if they are not defined
-    emberAmbitiousForms.configure((eaf) => {
-      if (appInstance.hasRegistration('service:i18n')) {
-        eaf.fieldPlugins.push('i18n')
-      }
-      if (appInstance.hasRegistration('service:validations')) {
-        eaf.fieldPlugins.push('validations')
-      }
-      if ((typeof RESTless != 'undefined') && (RESTless instanceof Ember.Namespace)) {
-        eaf.fieldPlugins.push('restless')
-      }
+    emberAmbitiousForms.configure({
+      fieldPlugins: autoDetectFieldPlugins(appInstance)
     })
   }
 }
