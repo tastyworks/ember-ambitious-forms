@@ -34,6 +34,7 @@ export default Ember.Mixin.create({
     }
 
     return Boolean(validationScope.get(`validations.${fieldKey}.presence`))
+      || Boolean(validationScope.get(`validations.${fieldKey}.acceptance`))
   }),
 
   optionValues: Ember.computed('validationScope', 'fieldKey', function () {
