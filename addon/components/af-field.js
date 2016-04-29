@@ -84,41 +84,38 @@ export default Ember.Component.extend({
       this._asComponent(`af-${type}`)
   }),
 
-  _rawValue: computedIndirect('_rawValueKey'),
-  _rawValueKey: Ember.computed('scope', 'fieldKey', function () {
+  value: computedIndirect('_valueKey'),
+  _valueKey: Ember.computed('scope', 'fieldKey', function () {
     if (this.get('scope')) {
       return `scope.${this.get('fieldKey')}`
     } else {
       // Scope does not exist. Stick it on current component instance instead
-      return '_rawValueLocal'
-    }
-  }),
-
-  // Wrapping .set('value') because <input> will attempt to update to empty-string
-  // which triggers change events
-  value: Ember.computed('_rawValue', {
-    get () {
-      return this.get('_rawValue')
-    },
-
-    set (key, value) {
-      if (Ember.isEmpty(value) && Ember.isEmpty(this.get('_rawValue'))) {
-        return value
-      } else {
-        return this.set('_rawValue', value)
-      }
+      return '_value'
     }
   }),
 
   hasError: Ember.computed.notEmpty('errors'),
   errors: null,
 
-  // show errors only after form was pinged to hide initial errors
+  // show errors only after field was pinged to hide initial errors
   hideError: true,
 
-  focusOut: Ember.observer('value', function () {
+  // If the field has 2 inputs, it might trigger focusOut => focusIn immediately
+  // Delay this fire to prevent double triggering from executing.
+  focusOut () {
+    this._doFocusOutTimer = Ember.run.debounce(this, this._doFocusOut, 50)
+  },
+
+  _doFocusOut () {
     this.set('hideError', false)
-  }),
+  },
+
+  focusIn () {
+    if (this._doFocusOutTimer) {
+      Ember.run.cancel(this._doFocusOutTimer)
+      this._doFocusOutTimer = null
+    }
+  },
 
   showError: Ember.computed('hasError', 'hideError', function () {
     return this.get('hasError') && !this.get('hideError')
