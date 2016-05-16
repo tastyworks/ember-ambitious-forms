@@ -1,12 +1,6 @@
 import Ember from 'ember'
 import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
-export const DEFAULT_CONFIG = {
-  fieldTypeMappings: {
-    boolean: { type: 'checkbox' }
-  }
-}
-
 export default Ember.Component.extend({
   service: Ember.inject.service('ember-ambitious-forms'),
 
@@ -27,7 +21,9 @@ export default Ember.Component.extend({
 
   _fieldTypeConfig (configName) {
     let fieldType = this.get('fieldType')
-    return this.get(`service.config.fieldTypeMappings.${fieldType}.${configName}`)
+    if (fieldType) {
+      return this.get(`service.config.fieldTypeMappings.${fieldType}.${configName}`)
+    }
   },
 
   // See if scope has injection _toString
@@ -47,6 +43,11 @@ export default Ember.Component.extend({
 
     if (this.get('options.length') > 0) {
       return 'select'
+    }
+
+    switch (this.getWithDefault('fieldType', '').toLowerCase()) {
+      case 'number':  return 'number'
+      case 'boolean': return 'checkbox'
     }
 
     let lcaseFieldKey = (this.get('fieldKey') || '').toLowerCase()
