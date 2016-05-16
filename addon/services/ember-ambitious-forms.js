@@ -1,6 +1,6 @@
 import Ember from 'ember'
 
-import AFField, { DEFAULT_CONFIG as FIELD_DEFAULT_CONFIG } from '../components/af-field'
+import { DEFAULT_CONFIG as FIELD_DEFAULT_CONFIG } from '../components/af-field'
 
 import i18n from '../mixins/i18n'
 import loc from '../mixins/loc'
@@ -21,12 +21,12 @@ export default Ember.Service.extend({
       Ember.$.extend(true, this.config, arg)
     }
 
-    // TODO: localize plugin logic instead of tossing them onto the base class
+    let afFieldClass = Ember.getOwner(this).resolveRegistration('component:af-field')
     this.config.fieldPlugins.forEach((plugin) => {
       if (plugin instanceof Ember.Mixin) {
-        AFField.reopen(plugin)
+        afFieldClass.reopen(plugin)
       } else if (AF_FIELD_MIXINS[plugin]) {
-        AFField.reopen(AF_FIELD_MIXINS[plugin])
+        afFieldClass.reopen(AF_FIELD_MIXINS[plugin])
       } else {
         Ember.warn(`Not a valid plugin: ${plugin}`)
       }
