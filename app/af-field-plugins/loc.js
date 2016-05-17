@@ -2,6 +2,12 @@ import Ember from 'ember'
 import Lookup from 'ember-ambitious-forms/mixins/lookup'
 
 export function autoLoad (_appInstance) {
+  for (let key in Ember.STRINGS) {
+    if (Ember.STRINGS.hasOwnProperty(key) && key.indexOf('af.') === 0) {
+      return true
+    }
+  }
+
   return false
 }
 
