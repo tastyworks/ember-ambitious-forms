@@ -1,7 +1,11 @@
 import Ember from 'ember'
-import Lookup from './lookup'
+import Lookup from 'ember-ambitious-forms/mixins/lookup'
 
-export default Ember.Mixin.create(Lookup, {
+export function autoLoad (appInstance) {
+  return appInstance.hasRegistration('service:i18n')
+}
+
+export const Plugin = Ember.Mixin.create(Lookup, {
   i18n: Ember.inject.service(),
 
   _lookupCache: Ember.computed.oneWay('i18n.locale'),
@@ -14,3 +18,5 @@ export default Ember.Mixin.create(Lookup, {
     return this.get('i18n').exists(key)
   }
 })
+
+export default { autoLoad, Plugin }

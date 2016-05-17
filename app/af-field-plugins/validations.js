@@ -3,7 +3,11 @@ import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
 const ALLOW_BLANK_FILTERS = ['exclusion', 'format', 'inclusion', 'length', 'numericality']
 
-export default Ember.Mixin.create({
+export function autoLoad (appInstance) {
+  return appInstance.hasRegistration('service:validations')
+}
+
+export const Plugin = Ember.Mixin.create({
   validationScope: Ember.computed.oneWay('scope'),
 
   errors: computedIndirect('_errorsKey'),
@@ -47,3 +51,5 @@ export default Ember.Mixin.create({
     return this._super() || validationScope.get(`validations.${fieldKey}.inclusion.in`)
   })
 })
+
+export default { autoLoad, Plugin }

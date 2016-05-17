@@ -1,7 +1,11 @@
 import Ember from 'ember'
 import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
-export default Ember.Mixin.create({
+export function autoLoad (appInstance) {
+  return (typeof RESTless != 'undefined') && (RESTless instanceof Ember.Namespace)
+}
+
+export const Plugin = Ember.Mixin.create({
   model: Ember.computed.alias('scope'),
 
   _modelMeta: Ember.computed.readOnly('model.constructor'),
@@ -21,3 +25,5 @@ export default Ember.Mixin.create({
     }
   })
 })
+
+export default { autoLoad, Plugin }

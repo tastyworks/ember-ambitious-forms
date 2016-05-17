@@ -1,7 +1,11 @@
 import Ember from 'ember'
-import Lookup from './lookup'
+import Lookup from 'ember-ambitious-forms/mixins/lookup'
 
-export default Ember.Mixin.create(Lookup, {
+export function autoLoad (_appInstance) {
+  return false
+}
+
+export const Plugin = Ember.Mixin.create(Lookup, {
   _lookup (key) {
     return Ember.String.loc(key)
   },
@@ -11,3 +15,5 @@ export default Ember.Mixin.create(Lookup, {
     return Ember.STRINGS.hasOwnProperty(key)
   }
 })
+
+export default { autoLoad, Plugin }
