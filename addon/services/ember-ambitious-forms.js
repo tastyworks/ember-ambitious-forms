@@ -2,11 +2,10 @@ import Ember from 'ember'
 
 export default Ember.Service.extend({
   config: Ember.computed('_defaultConfig', '_envConfig', function () {
-    let configs = [
+    return Ember.Object.create(
       this.get('_defaultConfig'),
       this.get('_envConfig')
-    ]
-    return Ember.Object.create(...configs)
+    )
   }),
 
   _defaultConfig: Ember.computed(function () {
