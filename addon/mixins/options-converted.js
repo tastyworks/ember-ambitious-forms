@@ -7,24 +7,24 @@ export let Option = Ember.Object.extend({
   })
 })
 
+export function convert (source, rawOption) {
+  let option = Option.create({ source })
+  if (Ember.isArray(rawOption)) {
+    let [value, text, description] = rawOption
+    option.setProperties({ value, text, description })
+  } else if (rawOption.hasOwnProperty('value')) {
+    option.setProperties(rawOption)
+  } else {
+    option.set('value', rawOption)
+  }
+  return option
+}
+
 export default Ember.Mixin.create({
   optionsConverted: Ember.computed('options.[]', function () {
-    return this.get('options').map((option, index) => {
-      if (Ember.isArray(option)) {
-        return Option.create({
-          value: option[0],
-          text: option[1],
-          description: option[2],
-          source: this
-        })
-      } else if (option.hasOwnProperty('value')) {
-        return Option.create(option, { source: this })
-      } else {
-        return Option.create({
-          value: option,
-          source: this
-        })
-      }
-    })
+    let options = this.get('options')
+    if (options) {
+      return options.map((option) => convert(this, option))
+    }
   })
 })
