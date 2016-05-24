@@ -20,7 +20,7 @@ export const Plugin = Ember.Mixin.create({
 
   _didUpdate: Ember.observer('value', function () {
     let model = this.get('model')
-    if (model.trigger) {
+    if (model && model.trigger) {
       model.trigger('didUpdate')
     }
   })
