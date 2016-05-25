@@ -1,0 +1,5 @@
+{{#each scopes as |scope index|}}
+  {{#component 'af-scope' scope=scope as |afScope|}}
+    {{yield afScope scope index}}
+  {{/component}}
+{{/each}}
