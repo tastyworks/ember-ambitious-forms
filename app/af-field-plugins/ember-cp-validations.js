@@ -4,7 +4,8 @@ import computedIndirect from 'ember-computed-indirect/utils/indirect'
 const ALLOW_BLANK_FILTERS = ['exclusion', 'format', 'inclusion', 'length', 'numericality']
 
 export function autoLoad (appInstance) {
-  return true
+  let validator = appInstance.resolveRegistration('validator:presence')
+  return validator && typeof validator.getDependentsFor === 'function'
 }
 
 export const Plugin = Ember.Mixin.create({
