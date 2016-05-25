@@ -37,7 +37,7 @@ export const Plugin = Ember.Mixin.create({
         return true
       }
 
-      if (rule._type === 'presence' || rule._type === 'acceptance') {
+      if (rule._type === 'presence') {
         return true
       }
     }
