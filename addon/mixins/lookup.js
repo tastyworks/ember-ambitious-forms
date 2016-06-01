@@ -1,19 +1,28 @@
 import Ember from 'ember'
 
-export default Ember.Mixin.create({
-  _lookupOptional (key) {
-    if (this._lookupExists(key)) {
-      return this._lookup(key)
+function computedLookupKey (subname, def) {
+  return Ember.computed('lookupKey', function () {
+    if (def && def.call(this)) {
+      return def.call(this)
     }
-  },
 
-  _lookupKeyFor (subname) {
     let lookupKey = this.get('lookupKey')
     if (lookupKey) {
       return `${lookupKey}.${subname}`
     }
-  },
+  })
+}
 
+function computedLookupOptional (keyName) {
+  return Ember.computed('_lookupCache', keyName, function () {
+    let key = this.get(keyName)
+    if (key && this._lookupExists(key)) {
+      return this._lookup(key)
+    }
+  })
+}
+
+export default Ember.Mixin.create({
   lookupKeyConvert: Ember.String.dasherize,
 
   lookupKey: Ember.computed('scopeName', 'fieldKey', function () {
@@ -26,24 +35,11 @@ export default Ember.Mixin.create({
     }
   }),
 
-  lookupDescriptionKey: Ember.computed('lookupKey', function() {
-    return this._lookupKeyFor('description')
-  }),
-
-  lookupHintKey: Ember.computed('lookupKey', function () {
-    return this._lookupKeyFor('hint')
-  }),
-
-  lookupPlaceholderKey: Ember.computed('lookupKey', function () {
-    return this._lookupKeyFor('placeholder')
-  }),
-
-  lookupOptionsKey: Ember.computed('fieldType', 'lookupKey', function () {
-    return this._fieldTypeConfig('lookupOptionsKey') || this._lookupKeyFor('options')
-  }),
-
-  lookupOptionDescriptionsKey: Ember.computed('fieldType', 'lookupKey', function () {
-    return this._fieldTypeConfig('lookupOptionsDescriptionKey') || this._lookupKeyFor('option-descriptions')
+  lookupHintKey: computedLookupKey('hint'),
+  lookupDescriptionKey: computedLookupKey('description'),
+  lookupPlaceholderKey: computedLookupKey('placeholder'),
+  lookupOptionsKey: computedLookupKey('options', function () {
+    return this._fieldTypeConfig('lookupOptionsKey')
   }),
 
   label: Ember.computed('_lookupCache', 'lookupKey', function () {
@@ -53,53 +49,33 @@ export default Ember.Mixin.create({
     }
   }),
 
-  description: Ember.computed('_lookupCache', 'lookupDescriptionKey', function () {
-    let key = this.get('lookupDescriptionKey')
-    if (key) {
-      return this._lookupOptional(key)
-    }
-  }),
+  hint: computedLookupOptional('lookupHintKey'),
+  description: computedLookupOptional('lookupDescriptionKey'),
+  placeholder: computedLookupOptional('lookupPlaceholderKey'),
 
-  hint: Ember.computed('_lookupCache', 'lookupHintKey', function () {
-    let key = this.get('lookupHintKey')
-    if (key) {
-      return this._lookupOptional(key)
-    }
-  }),
-
-  placeholder: Ember.computed('_lookupCache', 'lookupPlaceholderKey', function () {
-    let key = this.get('lookupPlaceholderKey')
-    if (key) {
-      return this._lookupOptional(key)
-    }
-  }),
-
-  options: Ember.computed('_lookupCache', 'optionValues.[]', 'lookupOptionsKey', 'lookupOptionDescriptionsKey', function () {
+  options: Ember.computed('_lookupCache', 'optionValues.[]', 'lookupOptionsKey', function () {
     let optionValues = this.get('optionValues')
     if (!optionValues) {
       return
     }
 
     let lookupOptionsKey = this.get('lookupOptionsKey')
-    let lookupOptionDescriptionsKey = this.get('lookupOptionDescriptionsKey')
 
     if (!lookupOptionsKey) {
       return optionValues
     }
 
     return optionValues.map((value) => {
-      let option = { value }
-
       let valueKey = this.lookupKeyConvert(value.toString())
 
-      let textKey = `${lookupOptionsKey}.${valueKey}`
-      if (this._lookupExists(textKey)) {
-        option.text = this._lookup(textKey)
+      let option = { value }
+
+      if (this._lookupExists(`${lookupOptionsKey}.${valueKey}`)) {
+        option.text = this._lookup(`${lookupOptionsKey}.${valueKey}`)
       }
 
-      let descriptionKey = `${lookupOptionDescriptionsKey}.${valueKey}`
-      if (this._lookupExists(descriptionKey)) {
-        option.description = this._lookup(descriptionKey)
+      if (this._lookupExists(`${lookupOptionsKey}.${valueKey}.description`)) {
+        option.description = this._lookup(`${lookupOptionsKey}.${valueKey}.description`)
       }
 
       return option
