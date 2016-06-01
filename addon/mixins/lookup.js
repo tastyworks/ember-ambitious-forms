@@ -26,6 +26,10 @@ export default Ember.Mixin.create({
     }
   }),
 
+  lookupDescriptionKey: Ember.computed('lookupKey', function() {
+    return this._lookupKeyFor('description')
+  }),
+
   lookupHintKey: Ember.computed('lookupKey', function () {
     return this._lookupKeyFor('hint')
   }),
@@ -46,6 +50,13 @@ export default Ember.Mixin.create({
     let key = this.get('lookupKey')
     if (key) {
       return this._lookup(key)
+    }
+  }),
+
+  description: Ember.computed('_lookupCache', 'lookupDescriptionKey', function () {
+    let key = this.get('lookupDescriptionKey')
+    if (key) {
+      return this._lookupOptional(key)
     }
   }),
 

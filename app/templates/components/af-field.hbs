@@ -27,6 +27,10 @@
   {{/if}}
 </span>
 
+{{#if description}}
+  <span class='af-description {{descriptionClass}}'>{{description}}</span>
+{{/if}}
+
 {{#if showError}}
   <span class='af-error {{errorClass}}'>{{errors}}</span>
 {{/if}}

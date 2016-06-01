@@ -134,8 +134,11 @@ export default Ember.Component.extend({
     }
   }),
 
-  hintClass: null,
   hint: null,
+  hintClass: null,
+
+  description: null,
+  descriptionClass: null,
 
   prompt: Ember.computed.oneWay('service.config.prompt'),
   options: Ember.computed.alias('optionValues'),
