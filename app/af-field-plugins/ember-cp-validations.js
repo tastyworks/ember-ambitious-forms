@@ -18,7 +18,7 @@ export const Plugin = Ember.Mixin.create({
     let fieldKey = this.get('fieldKey')
     if (!validationScope || !fieldKey) {
       // There's no scope for the errors to exist so let's create a dummy version
-      return '_rawErrors'
+      return '_rawErrorsLocal'
     }
 
     return `validationScope.validations.attrs.${fieldKey}.errors.[]`
