@@ -26,7 +26,7 @@ export const Plugin = Ember.Mixin.create({
 
   _fieldValidationRules: Ember.computed('validationScope', 'fieldKey', function () {
     let fieldKey = this.get('fieldKey')
-    return Ember.makeArray(this.get(`validationScope.validations._validationRules.${fieldKey}`))
+    return Ember.A(this.get(`validationScope.validations._validationRules.${fieldKey}`))
   }),
 
   required: Ember.computed('_fieldValidationRules', function () {
