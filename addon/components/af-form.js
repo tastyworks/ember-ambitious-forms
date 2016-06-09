@@ -3,6 +3,7 @@ import Ember from 'ember'
 export default Ember.Component.extend({
   classNames: 'af-form',
 
+  readOnly: false,
   showAllErrors: false,
   fields: Ember.computed(() => Ember.A()),
   fieldsWithError: Ember.computed.filterBy('fields', 'hasError'),

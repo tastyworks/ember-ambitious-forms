@@ -16,13 +16,17 @@
 </span>
 
 <span class='af-body'>
-  {{#if hasBlock}}
-    {{yield value}}
+  {{#if readOnly}}
+    {{af-read-only value=formattedValue}}
   {{else}}
-    {{#if inputComponent}}
-      {{component inputComponent class=inputClass value=value options=options prompt=prompt}}
+    {{#if hasBlock}}
+      {{yield value}}
     {{else}}
-      {{input class=(concat 'af-input' inputClass) value=value type=type placeholder=placeholder}}
+      {{#if inputComponent}}
+        {{component inputComponent class=inputClass value=value options=options prompt=prompt}}
+      {{else}}
+        {{input class=(concat 'af-input' inputClass) value=value type=type placeholder=placeholder}}
+      {{/if}}
     {{/if}}
   {{/if}}
 </span>

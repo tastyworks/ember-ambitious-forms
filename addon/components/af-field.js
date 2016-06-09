@@ -6,6 +6,7 @@ export default Ember.Component.extend({
 
   tagName: 'label',
   classNames: ['af-field'],
+  readOnly: Ember.computed.oneWay('afForm.readOnly'),
 
   // TODO: figure out a better way to do this
   _onWillInsertElement: Ember.on('willInsertElement', function () {
@@ -93,6 +94,14 @@ export default Ember.Component.extend({
       // Scope does not exist. Stick it on current component instance instead
       return '_value'
     }
+  }),
+
+  formattedValue: Ember.computed('value', 'type', function () {
+    if (this.get('type') === 'password') {
+      return
+    }
+
+    return this.get('value')
   }),
 
   hasError: Ember.computed.notEmpty('errors'),
