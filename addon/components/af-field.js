@@ -127,8 +127,8 @@ export default Ember.Component.extend({
     }
   },
 
-  showError: Ember.computed('hasError', 'hideError', function () {
-    return this.get('hasError') && !this.get('hideError')
+  showError: Ember.computed('hasError', 'hideError', 'readOnly', function () {
+    return this.get('hasError') && !this.get('hideError') && !this.get('readOnly')
   }),
 
   required: false,
