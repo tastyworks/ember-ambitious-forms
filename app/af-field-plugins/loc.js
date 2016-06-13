@@ -12,8 +12,8 @@ export function autoLoad (_appInstance) {
 }
 
 export const Plugin = Ember.Mixin.create(Lookup, {
-  _lookup (key) {
-    return Ember.String.loc(key)
+  _lookup (key, args) {
+    return Ember.String.loc(key, args)
   },
 
   _lookupExists (key) {

@@ -10,8 +10,8 @@ export const Plugin = Ember.Mixin.create(Lookup, {
 
   _lookupCache: Ember.computed.oneWay('i18n.locale'),
 
-  _lookup (key) {
-    return this.get('i18n').t(key)
+  _lookup (key, args) {
+    return this.get('i18n').t(key, args)
   },
 
   _lookupExists (key) {

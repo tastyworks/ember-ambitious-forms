@@ -14,16 +14,19 @@ function computedLookupKey (subname, def) {
 }
 
 function computedLookupOptional (keyName) {
-  return Ember.computed('_lookupCache', keyName, function () {
+  return Ember.computed('_lookupCache', 'lookupArguments', keyName, function () {
     let key = this.get(keyName)
     if (key && this._lookupExists(key)) {
-      return this._lookup(key)
+      return this._lookup(key, this.get('lookupArguments'))
     }
   })
 }
 
 export default Ember.Mixin.create({
   lookupKeyConvert: Ember.String.dasherize,
+
+  lookupArgs: Ember.A(),
+  lookupArguments: Ember.computed.alias('lookupArgs'),
 
   lookupKey: Ember.computed('scopeName', 'fieldKey', function () {
     let scopeName = this.get('scopeName')
@@ -42,10 +45,10 @@ export default Ember.Mixin.create({
     return this._fieldTypeConfig('lookupOptionsKey')
   }),
 
-  label: Ember.computed('_lookupCache', 'lookupKey', function () {
+  label: Ember.computed('_lookupCache', 'lookupArguments', 'lookupKey', function () {
     let key = this.get('lookupKey')
     if (key) {
-      return this._lookup(key)
+      return this._lookup(key, this.get('lookupArguments'))
     }
   }),
 
