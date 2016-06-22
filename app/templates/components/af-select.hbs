@@ -2,7 +2,7 @@
   {{#if prompt}}
     <option>{{prompt}}</option>
   {{/if}}
-  {{#each options as |option|}}
+  {{#each convertedOptions as |option|}}
     <option selected={{option.isSelected}} value={{option.value}}>
       {{option.text}}
       {{#if option.description}}

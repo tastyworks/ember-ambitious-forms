@@ -1,4 +1,4 @@
-{{#each options as |option|}}
+{{#each convertedOptions as |option|}}
   {{#af-radio name=name value=option.value checked=option.isSelected action='radioChange'}}
     {{option.text}}
     {{#if option.description}}

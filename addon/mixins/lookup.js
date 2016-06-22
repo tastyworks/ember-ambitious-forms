@@ -1,7 +1,5 @@
 import Ember from 'ember'
 
-import SelectableOption from '../utils/selectable-option'
-
 function computedLookupKey (subname, defawlt) {
   return Ember.computed('lookupKey', function () {
     if (defawlt && defawlt.call(this)) {
@@ -73,14 +71,14 @@ export default Ember.Mixin.create({
     return optionValues.map((value) => {
       let valueKey = this.lookupKeyConvert(value.toString())
 
-      let option = SelectableOption.create({ source: this, value })
+      let option = { value }
 
       if (this._lookupExists(`${lookupOptionsKey}.${valueKey}`)) {
-        option.set('text', this._lookup(`${lookupOptionsKey}.${valueKey}`))
+        option.text = this._lookup(`${lookupOptionsKey}.${valueKey}`)
       }
 
       if (this._lookupExists(`${lookupOptionsKey}.${valueKey}.description`)) {
-        option.set('description', this._lookup(`${lookupOptionsKey}.${valueKey}.description`))
+        option.description = this._lookup(`${lookupOptionsKey}.${valueKey}.description`)
       }
 
       return option

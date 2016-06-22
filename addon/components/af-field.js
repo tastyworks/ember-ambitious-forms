@@ -1,9 +1,9 @@
 import Ember from 'ember'
 import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
-import SelectableOption from '../utils/selectable-option'
+import ConvertedOptions from '../mixins/converted-options'
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ConvertedOptions, {
   service: Ember.inject.service('ember-ambitious-forms'),
 
   tagName: 'label',
@@ -108,7 +108,7 @@ export default Ember.Component.extend({
       return
     }
 
-    let selectedOption = (this.get('options') || []).findBy('value', value)
+    let selectedOption = (this.get('convertedOptions') || []).findBy('value', value)
     if (selectedOption) {
       return selectedOption.get('text')
     }
@@ -162,14 +162,7 @@ export default Ember.Component.extend({
   descriptionClass: null,
 
   prompt: Ember.computed.oneWay('service.config.prompt'),
-  options: Ember.computed('optionValues.[]', function () {
-    let values = this.get('optionValues')
-    if (!values) {
-      return
-    }
-
-    return values.map((value) => SelectableOption.create({ source: this, value }))
-  }),
+  options: Ember.computed.oneWay('optionValues'),
 
   optionValues: Ember.computed('fieldType', function () {
     return this._fieldTypeConfig('options')
