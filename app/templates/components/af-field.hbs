@@ -16,11 +16,11 @@
 </span>
 
 <span class='af-body'>
-  {{#if readOnly}}
-    {{af-read-only value=formattedValue}}
+  {{#if hasBlock}}
+    {{yield this}}
   {{else}}
-    {{#if hasBlock}}
-      {{yield value}}
+    {{#if readOnly}}
+      {{af-read-only value=formattedValue}}
     {{else}}
       {{#if inputComponent}}
         {{component inputComponent class=inputClass value=value options=options prompt=prompt}}

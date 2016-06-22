@@ -1,5 +1,9 @@
 {{#if value}}
   <strong class='af-read-only'>{{value}}</strong>
 {{else}}
-  <strong class='af-read-only'>&nbsp;</strong>
+  {{#if hasBlock}}
+    <strong class='af-read-only'>{{yield}}</strong>
+  {{else}}
+    <strong class='af-read-only'>&nbsp;</strong>
+  {{/if}}
 {{/if}}
