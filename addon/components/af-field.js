@@ -99,6 +99,11 @@ export default Ember.Component.extend({
   }),
 
   formattedValue: Ember.computed('value', function () {
+    let formatter = this.get('formatter')
+    return formatter.call(this, this.get('value'))
+  }),
+
+  formatter (value) {
     if (this.get('type') === 'password') {
       return
     }
