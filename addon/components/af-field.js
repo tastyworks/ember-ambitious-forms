@@ -1,6 +1,8 @@
 import Ember from 'ember'
 import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
+import SelectableOption from '../utils/selectable-option'
+
 export default Ember.Component.extend({
   service: Ember.inject.service('ember-ambitious-forms'),
 
@@ -96,13 +98,18 @@ export default Ember.Component.extend({
     }
   }),
 
-  formattedValue: Ember.computed('value', 'type', function () {
+  formattedValue: Ember.computed('value', function () {
     if (this.get('type') === 'password') {
       return
     }
 
-    return this.get('value')
-  }),
+    let selectedOption = (this.get('options') || []).findBy('value', value)
+    if (selectedOption) {
+      return selectedOption.get('text')
+    }
+
+    return value
+  },
 
   hasError: Ember.computed.notEmpty('errors'),
   errors: null,
@@ -150,7 +157,14 @@ export default Ember.Component.extend({
   descriptionClass: null,
 
   prompt: Ember.computed.oneWay('service.config.prompt'),
-  options: Ember.computed.alias('optionValues'),
+  options: Ember.computed('optionValues.[]', function () {
+    let values = this.get('optionValues')
+    if (!values) {
+      return
+    }
+
+    return values.map((value) => Option.create({ source: this, value }))
+  }),
 
   optionValues: Ember.computed('fieldType', function () {
     return this._fieldTypeConfig('options')

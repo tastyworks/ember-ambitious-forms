@@ -1,7 +1,6 @@
 import Ember from 'ember'
-import OptionsConverted from '../mixins/options-converted'
 
-export default Ember.Component.extend(OptionsConverted, {
+export default Ember.Component.extend({
   service: Ember.inject.service('ember-ambitious-forms'),
 
   tagName: 'span',
@@ -11,7 +10,7 @@ export default Ember.Component.extend(OptionsConverted, {
   actions: {
     selectChange (formValue) {
       // formValue is always a string so we have to compare the string value
-      let option = this.get('optionsConverted').find((o) => formValue === o.value.toString())
+      let option = this.get('options').find((o) => formValue === o.value.toString())
       let value = option ? option.value : null
       this.set('value', value)
       this.sendAction('action', value)
