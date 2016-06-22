@@ -168,7 +168,7 @@ export default Ember.Component.extend({
       return
     }
 
-    return values.map((value) => Option.create({ source: this, value }))
+    return values.map((value) => SelectableOption.create({ source: this, value }))
   }),
 
   optionValues: Ember.computed('fieldType', function () {
