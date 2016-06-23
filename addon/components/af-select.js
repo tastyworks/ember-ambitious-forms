@@ -3,6 +3,7 @@ import Ember from 'ember'
 import ConvertedOptions from '../mixins/converted-options'
 
 export default Ember.Component.extend(ConvertedOptions, {
+  layoutName: 'ember-ambitious-forms@components/af-select',
   service: Ember.inject.service('ember-ambitious-forms'),
 
   tagName: 'span',

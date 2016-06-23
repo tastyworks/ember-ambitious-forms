@@ -9,6 +9,7 @@
   {{af.field label='Ready?' value=true options=boolOpts}}
   {{af.field label='Set?' value=false options=boolOpts type='radio-group'}}
   {{af.field label='Go?' type='checkbox'}}
+  {{af.field label='Override' layoutName='field-override'}}
 
   <button>Submit</button>
 {{/af-form}}
@@ -17,11 +18,6 @@
 {{#af-form scope=formParams submit='formSubmit' error='formError' as |af|}}
   {{af.field 'email' label='Email'}}
   {{af.field 'name' label='Name'}}
-  {{af.field 'address' label='Address'}}
-  {{af.field 'phone' label='Phone'}}
-  {{af.field 'isReady' label='Ready?' options=boolOpts}}
-  {{af.field 'isSet' label='Set?' options=boolOpts type='radio-group'}}
-  {{af.field 'isGo' label='Go?' type='checkbox'}}
 
   <button>Submit</button>
 {{/af-form}}

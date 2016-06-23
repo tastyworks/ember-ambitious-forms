@@ -2,7 +2,8 @@ import Ember from 'ember'
 
 import ConvertedOptions from '../mixins/converted-options'
 
-export default Ember.Component.extend({
+export default Ember.Component.extend(ConvertedOptions, {
+  layoutName: 'ember-ambitious-forms@components/af-radio-group',
   tagName: 'span',
   classNames: ['af-radio-group'],
 

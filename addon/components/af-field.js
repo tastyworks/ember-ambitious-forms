@@ -4,6 +4,7 @@ import computedIndirect from 'ember-computed-indirect/utils/indirect'
 import ConvertedOptions from '../mixins/converted-options'
 
 export default Ember.Component.extend(ConvertedOptions, {
+  layoutName: 'ember-ambitious-forms@components/af-field',
   service: Ember.inject.service('ember-ambitious-forms'),
 
   tagName: 'label',
