@@ -82,11 +82,16 @@ export default Ember.Component.extend(ConvertedOptions, {
     return this._isComponent(name) ? name : null
   },
 
-  inputComponent: Ember.computed('type', function () {
+  inputComponent: Ember.computed('readOnly', 'type', function () {
+    if (this.get('readOnly')) {
+      return 'af-read-only'
+    }
+
     let type = this.get('type')
 
     return this._asComponent(type) ||
-      this._asComponent(`af-${type}`)
+      this._asComponent(`af-${type}`) ||
+      'af-input'
   }),
 
   value: computedIndirect('_valueKey'),
@@ -109,7 +114,7 @@ export default Ember.Component.extend(ConvertedOptions, {
       return
     }
 
-    let selectedOption = (this.get('convertedOptions') || []).findBy('value', value)
+    let selectedOption = Ember.A(this.get('convertedOptions') || []).findBy('value', value)
     if (selectedOption) {
       return selectedOption.get('text')
     }

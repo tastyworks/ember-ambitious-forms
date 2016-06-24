@@ -19,15 +19,7 @@
   {{#if hasBlock}}
     {{yield this}}
   {{else}}
-    {{#if readOnly}}
-      {{af-read-only value=formattedValue}}
-    {{else}}
-      {{#if inputComponent}}
-        {{component inputComponent class=inputClass value=value convertedOptions=convertedOptions prompt=prompt}}
-      {{else}}
-        {{input class=(concat 'af-input' inputClass) value=value type=type placeholder=placeholder}}
-      {{/if}}
-    {{/if}}
+    {{component inputComponent class=inputClass type=type value=value formattedValue=formattedValue convertedOptions=convertedOptions prompt=prompt placeholder=placeholder}}
   {{/if}}
 </span>
 
