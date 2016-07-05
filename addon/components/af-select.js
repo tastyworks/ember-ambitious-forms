@@ -11,9 +11,12 @@ export default Ember.Component.extend(ConvertedOptions, {
 
   prompt: Ember.computed.oneWay('service.config.prompt'),
   actions: {
-    selectChange (formValue) {
-      // formValue is always a string so we have to compare the string value
-      let option = this.get('convertedOptions').find((o) => formValue === o.value.toString())
+    selectChange (domSelect) {
+      let selectedIndex = domSelect.selectedIndex
+      if (this.get('prompt')) {
+        selectedIndex--
+      }
+      let option = this.get('convertedOptions').objectAt(selectedIndex)
       let value = option ? option.value : null
       this.set('value', value)
       this.sendAction('action', value)
