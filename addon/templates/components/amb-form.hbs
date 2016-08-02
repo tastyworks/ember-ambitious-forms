@@ -1,0 +1,7 @@
+<form {{action 'domSubmit' on='submit'}}>
+  {{yield (hash
+    scope-each=(component 'amb-form-scope-each' afForm=this)
+    scope=(component 'amb-form-scope' afForm=this)
+    field=(component 'amb-form-field' scope=scope afForm=this)
+  )}}
+</form>

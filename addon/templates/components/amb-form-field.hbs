@@ -16,5 +16,17 @@
 </span>
 
 <span class='amb-form-body'>
-  <strong>THIS IS OVERRIDDEN</strong>
+  {{#if hasBlock}}
+    {{yield this}}
+  {{else}}
+    {{component inputComponent class=inputClass type=type value=value formattedValue=formattedValue convertedOptions=convertedOptions prompt=prompt placeholder=placeholder}}
+  {{/if}}
 </span>
+
+{{#if description}}
+  <span class='amb-form-description {{descriptionClass}}'>{{description}}</span>
+{{/if}}
+
+{{#if showError}}
+  <span class='amb-form-error {{errorClass}}'>{{errors}}</span>
+{{/if}}

@@ -1,8 +1,8 @@
 import Ember from 'ember'
 
 export default Ember.Component.extend({
-  layoutName: 'ember-ambitious-forms@components/af-read-only',
-  classNames: 'af-read-only',
+  layoutName: 'ember-ambitious-forms@components/amb-form-read-only',
+  classNames: 'amb-form-read-only',
 
   value: null,
   formattedValue: null,

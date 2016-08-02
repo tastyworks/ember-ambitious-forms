@@ -1,9 +1,9 @@
 import Ember from 'ember'
 
 export default Ember.Component.extend({
-  layoutName: 'ember-ambitious-forms@components/af-radio',
+  layoutName: 'ember-ambitious-forms@components/amb-form-radio',
   tagName: 'label',
-  classNames: 'af-radio',
+  classNames: 'amb-form-radio',
   classNameBindings: 'checked:checked:unchecked',
 
   actions: {

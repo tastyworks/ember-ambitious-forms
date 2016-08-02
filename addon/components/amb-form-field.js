@@ -4,11 +4,11 @@ import computedIndirect from 'ember-computed-indirect/utils/indirect'
 import ConvertedOptions from '../mixins/converted-options'
 
 export default Ember.Component.extend(ConvertedOptions, {
-  layoutName: 'ember-ambitious-forms@components/af-field',
+  layoutName: 'ember-ambitious-forms@components/amb-form-field',
   service: Ember.inject.service('ember-ambitious-forms'),
 
   tagName: 'label',
-  classNames: ['af-field'],
+  classNames: ['amb-form-field'],
   readOnly: Ember.computed.oneWay('afForm.readOnly'),
 
   // TODO: figure out a better way to do this
@@ -77,21 +77,20 @@ export default Ember.Component.extend(ConvertedOptions, {
   },
 
   // The 'component' helper only takes names and component-helper output, not component classes
-  // #EmberFails
   _asComponent (name) {
     return this._isComponent(name) ? name : null
   },
 
   inputComponent: Ember.computed('readOnly', 'type', function () {
     if (this.get('readOnly')) {
-      return 'af-read-only'
+      return 'amb-form-read-only'
     }
 
     let type = this.get('type')
 
     return this._asComponent(type) ||
-      this._asComponent(`af-${type}`) ||
-      'af-input'
+      this._asComponent(`amb-form-${type}`) ||
+      'amb-form-input'
   }),
 
   value: computedIndirect('_valueKey'),
@@ -155,9 +154,9 @@ export default Ember.Component.extend(ConvertedOptions, {
   labelClass: Ember.computed('required', function () {
     let required = this.get('required')
     if (required === true) {
-      return 'af-required'
+      return 'amb-form-required'
     } else if (required) {
-      return `af-required-${required}`
+      return `amb-form-required-${required}`
     }
   }),
 

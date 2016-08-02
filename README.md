@@ -13,12 +13,12 @@ $ ember install git://github.com/dough-com/ember-ambitious-forms
 Template:
 
 ```handlebars
-{{#af-form scope=object submit='actionName' as |f|}}
+{{#amb-form scope=object submit='actionName' as |f|}}
   {{f.field 'propName' label='Property Name'}}
   {{f.field 'propBool' label='Check it' type='checkbox'}}
 
   <button>Submit</button>
-{{/af-form}}
+{{/amb-form}}
 ```
 
 ## Running

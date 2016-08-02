@@ -3,11 +3,11 @@ body {
   margin: 0 auto;
 }
 
-.af-field {
+.amb-form-field {
   display: block;
 }
 
-.af-header {
+.amb-form-header {
   display: inline-block;
   width: 30%;
   text-align: right;

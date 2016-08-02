@@ -1,7 +1,7 @@
 import Ember from 'ember'
 
 export default Ember.Component.extend({
-  layoutName: 'ember-ambitious-forms@components/af-scope',
+  layoutName: 'ember-ambitious-forms@components/amb-form-scope',
   tagName: ''
 }).reopenClass({
   positionalParams: ['scope']

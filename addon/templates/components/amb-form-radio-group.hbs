@@ -1,0 +1,8 @@
+{{#each convertedOptions as |option|}}
+  {{#amb-form-radio name=name value=option.value checked=option.isSelected action='radioChange'}}
+    {{option.text}}
+    {{#if option.description}}
+      <span class='amb-form-radio-description'>{{option.description}}</span>
+    {{/if}}
+  {{/amb-form-radio}}
+{{/each}}

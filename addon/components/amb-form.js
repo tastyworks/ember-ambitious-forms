@@ -1,8 +1,8 @@
 import Ember from 'ember'
 
 export default Ember.Component.extend({
-  layoutName: 'ember-ambitious-forms@components/af-form',
-  classNames: 'af-form',
+  layoutName: 'ember-ambitious-forms@components/amb-form',
+  classNames: 'amb-form',
 
   readOnly: false,
   showAllErrors: false,
