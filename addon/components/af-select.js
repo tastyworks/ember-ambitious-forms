@@ -2,12 +2,17 @@ import Ember from 'ember'
 
 import ConvertedOptions from '../mixins/converted-options'
 
+// TODO: what about when value is not in the list of options?
+
 export default Ember.Component.extend(ConvertedOptions, {
   layoutName: 'ember-ambitious-forms@components/af-select',
   service: Ember.inject.service('ember-ambitious-forms'),
 
   tagName: 'span',
   classNames: 'af-select',
+  classNameBindings: ['isOptionSelected:option-selected:prompt-selected'],
+
+  isOptionSelected: Ember.computed.notEmpty('value'),
 
   prompt: Ember.computed.oneWay('service.config.prompt'),
   actions: {
