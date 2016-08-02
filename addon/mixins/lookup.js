@@ -34,7 +34,7 @@ export default Ember.Mixin.create({
     if (scopeName && fieldKey) {
       let convertedScopeName = this.lookupKeyConvert(this.get('scopeName'))
       let convertedFieldKey = this.lookupKeyConvert(this.get('fieldKey'))
-      return `af.${convertedScopeName}.${convertedFieldKey}`
+      return `amb-form.${convertedScopeName}.${convertedFieldKey}`
     }
   }),
 

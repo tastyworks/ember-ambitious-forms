@@ -3,7 +3,7 @@ import Lookup from 'ember-ambitious-forms/mixins/lookup'
 
 export function autoLoad (_appInstance) {
   for (let key in Ember.STRINGS) {
-    if (Ember.STRINGS.hasOwnProperty(key) && key.indexOf('af.') === 0) {
+    if (Ember.STRINGS.hasOwnProperty(key) && key.indexOf('amb-form.') === 0) {
       return true
     }
   }
