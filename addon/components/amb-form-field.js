@@ -70,10 +70,10 @@ export default Ember.Component.extend(ConvertedOptions, {
   }),
 
   _isComponent (name) {
-    // Magic sauce: https://github.com/emberjs/ember.js/blob/v2.3.0/packages/ember-htmlbars/lib/keywords/closure-component.js#L69
-    let container = Ember.getOwner(this)
-    let componentLookup = container.lookup('component-lookup:main')
-    return Boolean(componentLookup.lookupFactory(name, container))
+    // Magic sauce: https://github.com/emberjs/ember.js/blob/a841b2e498557cff62c5cb56b01342a0af7abecd/packages/ember-htmlbars/lib/utils/is-component.js#L13
+    let owner = Ember.getOwner(this)
+    return owner.hasRegistration('component:' + name) ||
+           owner.hasRegistration('template:components/' + name)
   },
 
   // The 'component' helper only takes names and component-helper output, not component classes
