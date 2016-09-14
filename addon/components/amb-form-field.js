@@ -10,6 +10,9 @@ export default Ember.Component.extend(ConvertedOptions, {
   tagName: 'label',
   classNames: ['amb-form-field'],
   readOnly: false,
+  // By default, do not show errors until user has interacted with the field
+  showErrorWhenFresh: false,
+  isFresh: true,
 
   _onInsert: Ember.on('didInsertElement', function () {
     this.sendAction('onInsert', this)
@@ -120,9 +123,6 @@ export default Ember.Component.extend(ConvertedOptions, {
   hasError: Ember.computed.notEmpty('errors'),
   errors: null,
 
-  // show errors only after field was pinged to hide initial errors
-  hideError: true,
-
   // If the field has 2 inputs, it might trigger focusOut => focusIn immediately
   // Delay this fire to prevent double triggering from executing.
   focusOut () {
@@ -130,7 +130,7 @@ export default Ember.Component.extend(ConvertedOptions, {
   },
 
   _doFocusOut () {
-    this.set('hideError', false)
+    this.set('isFresh', false)
   },
 
   focusIn () {
@@ -140,8 +140,10 @@ export default Ember.Component.extend(ConvertedOptions, {
     }
   },
 
-  showError: Ember.computed('hasError', 'hideError', 'readOnly', function () {
-    return this.get('hasError') && !this.get('hideError') && !this.get('readOnly')
+  showError: Ember.computed('hasError', 'readOnly', 'isFresh', 'showErrorWhenFresh', function () {
+    return !this.get('readOnly') &&
+      this.get('hasError') &&
+      (!this.get('isFresh') || this.get('showErrorWhenFresh'))
   }),
 
   required: false,

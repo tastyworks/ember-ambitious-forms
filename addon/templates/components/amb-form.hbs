@@ -2,9 +2,9 @@
   {{#with (hash insertField=(action 'insertField') removeField=(action 'removeField')) as |actions|}}
     {{yield (hash
       actions=actions
-      scope-each=(component 'amb-form-scope-each' readOnly=readOnly formActions=actions)
-      scope=(component 'amb-form-scope' readOnly=readOnly formActions=actions)
-      field=(component 'amb-form-field' scope=scope readOnly=readOnly onInsert=actions.insertField onRemove=actions.removeField)
+      scope-each=(component 'amb-form-scope-each' readOnly=readOnly showErrorWhenFresh=showAllErrors formActions=actions)
+      scope=(component 'amb-form-scope' readOnly=readOnly showErrorWhenFresh=showAllErrors formActions=actions)
+      field=(component 'amb-form-field' scope=scope showErrorWhenFresh=showAllErrors readOnly=readOnly onInsert=actions.insertField onRemove=actions.removeField)
     )}}
   {{/with}}
 </form>
