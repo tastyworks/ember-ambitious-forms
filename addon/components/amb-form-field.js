@@ -9,7 +9,7 @@ export default Ember.Component.extend(ConvertedOptions, {
 
   tagName: 'label',
   classNames: ['amb-form-field'],
-  readOnly: Ember.computed.oneWay('afForm.readOnly'),
+  readOnly: false,
 
   _onInsert: Ember.on('didInsertElement', function () {
     this.sendAction('onInsert', this)

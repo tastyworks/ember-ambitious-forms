@@ -8,12 +8,12 @@ export default Ember.Controller.extend({
   boolOpts: Ember.A([true, false]),
 
   actions: {
-    formSubmit (afForm) {
-      console.log('Success!', afForm)
+    formSubmit (ambForm) {
+      console.log('Success!', ambForm)
     },
 
-    formError (afForm) {
-      console.warn('Failure!', afForm)
+    formError (ambForm) {
+      console.warn('Failure!', ambForm)
     }
   }
 })
