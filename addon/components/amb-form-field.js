@@ -11,16 +11,12 @@ export default Ember.Component.extend(ConvertedOptions, {
   classNames: ['amb-form-field'],
   readOnly: Ember.computed.oneWay('afForm.readOnly'),
 
-  // TODO: figure out a better way to do this
-  _onWillInsertElement: Ember.on('willInsertElement', function () {
-    let afForm = this.get('afForm')
-    afForm && afForm.addField(this)
+  _onInsert: Ember.on('didInsertElement', function () {
+    this.sendAction('onInsert', this)
   }),
 
-  // TODO: figure out a better way to do this
-  _onWillDestroyElement: Ember.on('willDestroyElement', function () {
-    let afForm = this.get('afForm')
-    afForm && afForm.removeField(this)
+  _onRemove: Ember.on('willDestroyElement', function () {
+    this.sendAction('onRemove', this)
   }),
 
   _fieldTypeConfig (configName) {

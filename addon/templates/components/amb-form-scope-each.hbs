@@ -1,5 +1,5 @@
 {{#each scopes as |scope index|}}
-  {{#component 'amb-form-scope' scope=scope afForm=afForm as |afScope|}}
+  {{#component 'amb-form-scope' scope=scope afForm=afForm formActions=formActions as |afScope|}}
     {{yield afScope index}}
   {{/component}}
 {{/each}}

@@ -48,26 +48,26 @@ export default Ember.Component.extend({
     }
   },
 
-  addField (component) {
-    this.get('fields').addObject(component)
-
-    // Ideally this should be a simple .set(), but it plays havoc with displayFieldErrors()
-    // component.set('hideError', false)
-    if (this.get('showAllErrors')) {
-      this.displayFieldErrors()
-    }
-  },
-
-  removeField (component) {
-    this.get('fields').removeObject(component)
-  },
-
   scrollTo (component, { paddingTop = 0 } = {}) {
     let offset = component.$().offset()
     Ember.$('html, body').animate({ scrollTop: offset.top - paddingTop }, 200)
   },
 
   actions: {
+    insertField (component) {
+      this.get('fields').addObject(component)
+
+      // Ideally this should be a simple .set(), but it plays havoc with displayFieldErrors()
+      // component.set('hideError', false)
+      if (this.get('showAllErrors')) {
+        this.displayFieldErrors()
+      }
+    },
+
+    removeField (component) {
+      this.get('fields').removeObject(component)
+    },
+
     domSubmit () {
       if (this.get('haveErrors')) {
         this.displayFieldErrors()
