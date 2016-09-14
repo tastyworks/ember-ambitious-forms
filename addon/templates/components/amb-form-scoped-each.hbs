@@ -1,0 +1,5 @@
+{{#each scopes as |scope index|}}
+  {{#amb-form-scoped scope readOnly=readOnly showErrorWhenFresh=showErrorWhenFresh formActions=formActions as |scoped|}}
+    {{yield scoped index}}
+  {{/amb-form-scoped}}
+{{/each}}

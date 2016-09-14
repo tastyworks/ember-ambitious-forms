@@ -1,5 +1,0 @@
-{{#each scopes as |scope index|}}
-  {{#component 'amb-form-scope' scope=scope readOnly=readOnly showErrorWhenFresh=showErrorWhenFresh formActions=formActions as |afScope|}}
-    {{yield afScope index}}
-  {{/component}}
-{{/each}}
