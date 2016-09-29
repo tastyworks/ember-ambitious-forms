@@ -1,4 +1,6 @@
 {{yield (hash
   scope=scope
-  field=(component 'amb-form-field' scope=scope readOnly=readOnly showErrorWhenFresh=showErrorWhenFresh onInsert=formActions.insertField onRemove=formActions.removeField)
+  haveErrors=haveErrors
+
+  field=(component 'amb-form-field' scope=scope readOnly=readOnly showErrorWhenFresh=showErrorWhenFresh onInsert=(action 'insertField') onRemove=(action 'removeField'))
 )}}
