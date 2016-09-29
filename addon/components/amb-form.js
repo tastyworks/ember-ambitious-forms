@@ -37,11 +37,15 @@ export default Ember.Component.extend({
 
   actions: {
     insertField (component) {
-      this.get('fields').addObject(component)
+      Ember.run.schedule('afterRender', () => {
+        this.get('fields').addObject(component)
+      })
     },
 
     removeField (component) {
-      this.get('fields').removeObject(component)
+      Ember.run.schedule('afterRender', () => {
+        this.get('fields').removeObject(component)
+      })
     },
 
     domSubmit () {
