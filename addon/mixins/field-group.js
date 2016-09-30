@@ -1,18 +1,23 @@
 import Ember from 'ember'
 
+import ErrorState from '../utils/error-state'
+
 export default Ember.Mixin.create({
   fields: Ember.computed(() => Ember.A()),
-  fieldsWithError: Ember.computed.filterBy('fields', 'hasError'),
-  haveErrors: Ember.computed.notEmpty('fieldsWithError'),
-  _lastHaveErrors: null,
+  fieldsWithErrors: Ember.computed.alias('errorState.contentWithErrors'),
 
-  _haveErrorsObserver: Ember.observer('haveErrors', function () {
-    let haveErrors = this.get('haveErrors')
-    if (haveErrors !== this.get('_lastHaveErrors')) {
-      this.sendAction('haveErrorsChanged', this, haveErrors)
-      this.set('_lastHaveErrors', haveErrors)
-    }
+  hasErrors: Ember.computed.alias('errorState.hasAny'),
+  errorState: Ember.computed('fields', function () {
+    return ErrorState.create({ content: this.get('fields') })
   }),
+
+  _triggerErrorStateChanged: Ember.on('init', Ember.observer('errorState.value', function () {
+    let errorStateValue = this.get('errorState.value')
+    if (errorStateValue !== this.get('_lastErrorStateValue')) {
+      this.sendAction('errorStateChanged', this, this.get('errorState'))
+      this.set('_lastErrorStateValue', errorStateValue)
+    }
+  })),
 
   actions: {
     insertField (component) {
@@ -27,6 +32,6 @@ export default Ember.Mixin.create({
       Ember.run.schedule('afterRender', () => {
         this.get('fields').removeObject(component)
       })
-    },
+    }
   }
 })

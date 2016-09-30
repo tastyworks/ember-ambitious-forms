@@ -7,10 +7,10 @@ export default Ember.Component.extend(FieldGroup, {
   classNames: 'amb-form',
 
   readOnly: false,
-  showAllErrors: false,
+  alwaysShowErrors: false,
 
   scrollToErrorField (index = 0) {
-    let field = this.get('fieldsWithError').objectAt(index)
+    let field = this.get('fieldsWithErrors').objectAt(index)
     if (field) {
       this.scrollTo(field, { paddingTop: 20})
     }
@@ -23,9 +23,9 @@ export default Ember.Component.extend(FieldGroup, {
 
   actions: {
     domSubmit () {
-      if (this.get('haveErrors')) {
+      if (this.get('hasErrors')) {
         this.scrollToErrorField()
-        this.set('showAllErrors', true)
+        this.set('alwaysShowErrors', true)
         this.sendAction('error', this)
       } else {
         this.sendAction('submit', this)

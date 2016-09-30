@@ -1,5 +1,5 @@
 {{#each scopes as |scope index|}}
-  {{#amb-form-scoped scope readOnly=readOnly showErrorWhenFresh=showErrorWhenFresh insertField=(action 'insertField') removeField=(action 'removeField') as |scoped|}}
+  {{#amb-form-scoped scope readOnly=readOnly alwaysShowErrors=alwaysShowErrors insertField=(action 'insertField') removeField=(action 'removeField') as |scoped|}}
     {{yield scoped index}}
   {{/amb-form-scoped}}
 {{/each}}

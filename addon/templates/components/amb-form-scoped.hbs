@@ -1,6 +1,6 @@
 {{yield (hash
   scope=scope
-  haveErrors=haveErrors
+  errorState=errorState
 
-  field=(component 'amb-form-field' scope=scope readOnly=readOnly showErrorWhenFresh=showErrorWhenFresh onInsert=(action 'insertField') onRemove=(action 'removeField'))
+  field=(component 'amb-form-field' scope=scope readOnly=readOnly alwaysShowErrors=alwaysShowErrors onInsert=(action 'insertField') onRemove=(action 'removeField'))
 )}}

@@ -27,6 +27,6 @@
   <span class='amb-form-description {{descriptionClass}}'>{{description}}</span>
 {{/if}}
 
-{{#if showError}}
+{{#if errorState.isVisible}}
   <span class='amb-form-error {{errorClass}}'>{{errors}}</span>
 {{/if}}

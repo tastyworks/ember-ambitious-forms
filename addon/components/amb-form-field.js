@@ -2,6 +2,7 @@ import Ember from 'ember'
 import computedIndirect from 'ember-computed-indirect/utils/indirect'
 
 import ConvertedOptions from '../mixins/converted-options'
+import ErrorState from '../utils/error-state'
 
 export default Ember.Component.extend(ConvertedOptions, {
   layoutName: 'ember-ambitious-forms@components/amb-form-field',
@@ -11,8 +12,8 @@ export default Ember.Component.extend(ConvertedOptions, {
   classNames: ['amb-form-field'],
   readOnly: false,
   // By default, do not show errors until user has interacted with the field
-  showErrorWhenFresh: false,
-  isFresh: true,
+  alwaysShowErrors: false,
+  _wasInteracted: false,
 
   _onInsert: Ember.on('didInsertElement', function () {
     this.sendAction('onInsert', this)
@@ -120,8 +121,15 @@ export default Ember.Component.extend(ConvertedOptions, {
     return value
   },
 
-  hasError: Ember.computed.notEmpty('errors'),
   errors: null,
+  hasErrors: Ember.computed('readOnly', 'errors.length', function () {
+    return !this.get('readOnly') && this.get('errors.length')
+  }),
+  showErrors: Ember.computed.or('_wasInteracted', 'alwaysShowErrors'),
+
+  errorState: Ember.computed(function () {
+    return ErrorState.create({ content: [this] })
+  }),
 
   // If the field has 2 inputs, it might trigger focusOut => focusIn immediately
   // Delay this fire to prevent double triggering from executing.
@@ -130,7 +138,9 @@ export default Ember.Component.extend(ConvertedOptions, {
   },
 
   _doFocusOut () {
-    this.set('isFresh', false)
+    if (!this.isDestroyed) {
+      this.set('_wasInteracted', true)
+    }
   },
 
   focusIn () {
@@ -139,12 +149,6 @@ export default Ember.Component.extend(ConvertedOptions, {
       this._doFocusOutTimer = null
     }
   },
-
-  showError: Ember.computed('hasError', 'readOnly', 'isFresh', 'showErrorWhenFresh', function () {
-    return !this.get('readOnly') &&
-      this.get('hasError') &&
-      (!this.get('isFresh') || this.get('showErrorWhenFresh'))
-  }),
 
   required: false,
   label: null,

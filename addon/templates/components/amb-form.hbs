@@ -1,10 +1,10 @@
 <form {{action 'domSubmit' on='submit'}}>
   {{yield (hash
     scope=scope
-    haveErrors=haveErrors
+    errorState=errorState
 
-    field=(component 'amb-form-field' scope=scope showErrorWhenFresh=showAllErrors readOnly=readOnly onInsert=(action 'insertField') onRemove=(action 'removeField'))
-    scoped=(component 'amb-form-scoped' readOnly=readOnly showErrorWhenFresh=showAllErrors insertField=(action 'insertField') removeField=(action 'removeField'))
-    scoped-each=(component 'amb-form-scoped-each' readOnly=readOnly showErrorWhenFresh=showAllErrors insertField=(action 'insertField') removeField=(action 'removeField'))
+    field=(component 'amb-form-field' scope=scope alwaysShowErrors=alwaysShowErrors readOnly=readOnly onInsert=(action 'insertField') onRemove=(action 'removeField'))
+    scoped=(component 'amb-form-scoped' readOnly=readOnly alwaysShowErrors=alwaysShowErrors insertField=(action 'insertField') removeField=(action 'removeField'))
+    scoped-each=(component 'amb-form-scoped-each' readOnly=readOnly alwaysShowErrors=alwaysShowErrors insertField=(action 'insertField') removeField=(action 'removeField'))
   )}}
 </form>
