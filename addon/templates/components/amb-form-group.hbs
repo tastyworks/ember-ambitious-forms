@@ -1,0 +1,9 @@
+{{yield (hash
+  scope=scope
+  errorState=errorState
+
+  field=(component 'amb-form-field' scope=scope alwaysShowErrors=alwaysShowErrors readOnly=readOnly onInsert=(action 'insertField') onRemove=(action 'removeField'))
+  group=(component 'amb-form-group' classNames='amb-form-group' scope=scope readOnly=readOnly alwaysShowErrors=alwaysShowErrors onInsertField=(action 'insertField') onRemoveField=(action 'removeField'))
+  scoped=(component 'amb-form-scoped' scope=scope readOnly=readOnly alwaysShowErrors=alwaysShowErrors onInsertField=(action 'insertField') onRemoveField=(action 'removeField'))
+  scoped-each=(component 'amb-form-scoped-each' scope=scope readOnly=readOnly alwaysShowErrors=alwaysShowErrors onInsertField=(action 'insertField') onRemoveField=(action 'removeField'))
+)}}

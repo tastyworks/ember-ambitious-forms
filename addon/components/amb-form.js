@@ -1,9 +1,9 @@
 import Ember from 'ember'
 
-import FieldGroup from '../mixins/field-group'
+import AmbFormGroup from './amb-form-group'
 
-export default Ember.Component.extend(FieldGroup, {
-  layoutName: 'ember-ambitious-forms@components/amb-form',
+export default AmbFormGroup.extend({
+  tagName: 'form',
   classNames: 'amb-form',
 
   readOnly: false,
@@ -21,16 +21,18 @@ export default Ember.Component.extend(FieldGroup, {
     Ember.$('html, body').animate({ scrollTop: offset.top - paddingTop }, timeout)
   },
 
-  actions: {
-    domSubmit () {
-      if (this.get('hasErrors')) {
-        this.scrollToErrorField()
-        this.set('alwaysShowErrors', true)
-        this.sendAction('error', this)
-      } else {
-        this.sendAction('submit', this)
-        this.sendAction('action', this)
-      }
+  submit (e) {
+    if (e) {
+      e.preventDefault()
+    }
+
+    if (this.get('hasErrors')) {
+      this.scrollToErrorField()
+      this.set('alwaysShowErrors', true)
+      this.sendAction('onError', this)
+    } else {
+      this.sendAction('onSubmit', this)
+      this.sendAction('action', this)
     }
   }
 })

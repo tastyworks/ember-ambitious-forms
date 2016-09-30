@@ -1,9 +1,8 @@
 import Ember from 'ember'
 
-import FieldGroup from '../mixins/field-group'
+import AmbFormGroup from './amb-form-group'
 
-export default Ember.Component.extend(FieldGroup, {
-  layoutName: 'ember-ambitious-forms@components/amb-form-scoped',
+export default AmbFormGroup.extend({
   tagName: ''
 }).reopenClass({
   positionalParams: ['scope']

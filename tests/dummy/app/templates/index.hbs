@@ -1,7 +1,7 @@
 <h1>Welcome to <code>ember-ambitious-forms</code>!</h1>
 
 <h2>Basic</h2>
-{{#amb-form submit='formSubmit' error='formError' as |f|}}
+{{#amb-form onSubmit='formSubmit' onError='formError' as |f|}}
   {{f.field label='Email'}}
   {{f.field label='Name' value='Charlie Brown'}}
   {{f.field label='Address' hint='hint'}}
@@ -15,7 +15,7 @@
 {{/amb-form}}
 
 <h2>Scope</h2>
-{{#amb-form scope=formParams submit='formSubmit' error='formError' as |f|}}
+{{#amb-form scope=formParams onSubmit='formSubmit' onError='formError' as |f|}}
   {{f.field 'email' label='Email'}}
   {{f.field 'name' label='Name'}}
 
