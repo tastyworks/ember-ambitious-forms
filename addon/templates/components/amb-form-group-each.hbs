@@ -1,0 +1,5 @@
+{{#each scopes as |scope index|}}
+  {{#parent.group scope=scope as |group|}}
+    {{yield group index}}
+  {{/parent.group}}
+{{/each}}
