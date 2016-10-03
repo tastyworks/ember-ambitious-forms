@@ -1,8 +1,12 @@
-{{yield (hash
-  scope=scope
-  errorState=errorState
+{{#with (hash) as |h|}}
+  {{amb-form-hash-set-properties h
+    scope=scope
+    errorState=errorState
 
-  field=(component 'amb-form-field' scope=scope alwaysShowErrors=alwaysShowErrors readOnly=readOnly onInsert=(action 'insertField') onRemove=(action 'removeField'))
-  group=(component 'amb-form-group' classNames='amb-form-group' scope=scope readOnly=readOnly alwaysShowErrors=alwaysShowErrors onInsertField=(action 'insertField') onRemoveField=(action 'removeField'))
-  group-each=(component 'amb-form-group-each' parent=this)
-)}}
+    field=(component 'amb-form-field' scope=scope alwaysShowErrors=alwaysShowErrors readOnly=readOnly onInsert=(action 'insertField') onRemove=(action 'removeField'))
+    group=(component 'amb-form-group' classNames='amb-form-group' scope=scope readOnly=readOnly alwaysShowErrors=alwaysShowErrors onInsertField=(action 'insertField') onRemoveField=(action 'removeField'))
+    group-each=(component 'amb-form-group-each' parent=h)
+  }}
+
+  {{yield h}}
+{{/with}}
