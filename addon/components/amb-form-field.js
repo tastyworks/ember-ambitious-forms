@@ -123,7 +123,7 @@ export default Ember.Component.extend(ConvertedOptions, {
 
   errors: null,
   hasErrors: Ember.computed('readOnly', 'errors.length', function () {
-    return !this.get('readOnly') && this.get('errors.length')
+    return !this.get('readOnly') && Boolean(this.get('errors.length'))
   }),
   showErrors: Ember.computed.or('_wasInteracted', 'alwaysShowErrors'),
 

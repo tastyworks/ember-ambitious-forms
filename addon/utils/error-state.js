@@ -25,8 +25,8 @@ export default Ember.Object.extend({
     throw new Error('Which error state am I?')
   }),
 
-  hasAny: Ember.computed.notEmpty('contentWithErrors'),
-  hasNone: Ember.computed.not('hasAny'),
+  hasNone: Ember.computed.empty('contentWithErrors'),
+  hasAny: Ember.computed.not('hasNone'),
   hasVisible: computedAnyBy('contentWithErrors', 'showErrors'),
   hasHidden: Ember.computed('hasAny', 'hasVisible', function () {
     return this.get('hasAny') && !this.get('hasVisible')
