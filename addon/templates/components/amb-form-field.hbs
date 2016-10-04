@@ -16,9 +16,11 @@
       errors=(component 'amb-form-field-errors' field=this)
     )}}
   {{else}}
-    {{amb-form-field-header field=this}}
-    {{component input}}
-    {{amb-form-field-description field=this}}
-    {{amb-form-field-errors field=this}}
+    {{#with this as |field|}}
+      {{partial 'components/amb-form-field-header'}}
+      {{component input}}
+      {{partial 'components/amb-form-field-description'}}
+      {{partial 'components/amb-form-field-errors'}}
+    {{/with}}
   {{/if}}
 {{/with}}

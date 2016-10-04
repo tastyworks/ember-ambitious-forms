@@ -2,7 +2,7 @@
   {{#if hasBlock}}
     {{yield}}
   {{else}}
-    {{amb-form-field-label field=field}}
-    {{amb-form-field-hint field=field}}
+    {{partial 'components/amb-form-field-label'}}
+    {{partial 'components/amb-form-field-hint'}}
   {{/if}}
 </span>
