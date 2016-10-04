@@ -7,9 +7,17 @@ export default Ember.Component.extend({
   value: null,
   formattedValue: null,
 
-  displayValue: Ember.computed('value', 'formattedValue', function () {
-    return this.get('formattedValue') ||
-      this.get('value') ||
-      Ember.String.htmlSafe('&nbsp;')
+  displayValue: Ember.computed('formattedValue', 'value', function () {
+    let formattedValue = this.get('formattedValue')
+    if (formattedValue != null) {
+      return formattedValue
+    }
+
+    let value = this.get('value')
+    if (value != null) {
+      return value.toString()
+    }
+
+    return Ember.String.htmlSafe('&nbsp;')
   })
 })
