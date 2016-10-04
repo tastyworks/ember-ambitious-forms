@@ -1,0 +1,7 @@
+{{#if hasBlock}}
+  <span class='amb-form-description {{field.descriptionClass}}'>{{yield}}</span>
+{{else}}
+  {{#if field.description}}
+    <span class='amb-form-description {{field.descriptionClass}}'>{{field.description}}</span>
+  {{/if}}
+{{/if}}

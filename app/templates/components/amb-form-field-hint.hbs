@@ -1,0 +1,7 @@
+{{#if hasBlock}}
+  <em class='amb-form-hint {{field.hintClass}}'>{{yield}}</em>
+{{else}}
+  {{#if field.hint}}
+    <em class='amb-form-hint {{field.hintClass}}'>{{field.hint}}</em>
+  {{/if}}
+{{/if}}

@@ -1,0 +1,17 @@
+{{#if hasBlock}}
+  <span class='amb-form-label {{field.labelClass}}'>
+    {{yield}}
+  </span>
+{{else}}
+  {{#if field.label}}
+    <span class='amb-form-label {{field.labelClass}}'>
+      {{#if field.labelPrefix}}
+        <span class='amb-form-label-prefix {{field.labelPrefixClass}}'>{{field.labelPrefix}}</span>
+      {{/if}}
+      {{field.label}}
+      {{#if field.labelSuffix}}
+        <span class='amb-form-label-suffix {{field.labelSuffixClass}}'>{{field.labelSuffix}}</span>
+      {{/if}}
+    </span>
+  {{/if}}
+{{/if}}

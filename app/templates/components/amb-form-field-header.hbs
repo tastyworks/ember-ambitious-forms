@@ -1,0 +1,8 @@
+<span class='amb-form-header {{field.headerClass}}'>
+  {{#if hasBlock}}
+    {{yield}}
+  {{else}}
+    {{amb-form-field-label field=field}}
+    {{amb-form-field-hint field=field}}
+  {{/if}}
+</span>

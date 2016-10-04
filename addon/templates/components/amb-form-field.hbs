@@ -1,32 +1,24 @@
-<span class='amb-form-header {{headerClass}}'>
-  {{#if label}}
-    <span class='amb-form-label {{labelClass}}'>
-      {{#if labelPrefix}}
-        <span class='amb-form-label-prefix {{labelPrefixClass}}'>{{labelPrefix}}</span>
-      {{/if}}
-      {{label}}
-      {{#if labelSuffix}}
-        <span class='amb-form-label-suffix {{labelSuffixClass}}'>{{labelSuffix}}</span>
-      {{/if}}
-    </span>
-  {{/if}}
-  {{#if hint}}
-    <em class='amb-form-hint {{hintClass}}'>{{hint}}</em>
-  {{/if}}
-</span>
-
-<span class='amb-form-body'>
+{{#with (component inputComponent
+          classNames=inputClass
+          type=type
+          value=value
+          formattedValue=formattedValue
+          convertedOptions=convertedOptions
+          prompt=prompt
+          placeholder=placeholder) as |input|}}
   {{#if hasBlock}}
-    {{yield this}}
+    {{yield (hash
+      input=input
+      header=(component 'amb-form-field-header' field=this)
+      label=(component 'amb-form-field-label' field=this)
+      hint=(component 'amb-form-field-hint' field=this)
+      description=(component 'amb-form-field-description' field=this)
+      errors=(component 'amb-form-field-errors' field=this)
+    )}}
   {{else}}
-    {{component inputComponent class=inputClass type=type value=value formattedValue=formattedValue convertedOptions=convertedOptions prompt=prompt placeholder=placeholder}}
+    {{amb-form-field-header field=this}}
+    {{component input}}
+    {{amb-form-field-description field=this}}
+    {{amb-form-field-errors field=this}}
   {{/if}}
-</span>
-
-{{#if description}}
-  <span class='amb-form-description {{descriptionClass}}'>{{description}}</span>
-{{/if}}
-
-{{#if errorState.isVisible}}
-  <span class='amb-form-error {{errorClass}}'>{{errors}}</span>
-{{/if}}
+{{/with}}
