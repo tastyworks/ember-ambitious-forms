@@ -22,9 +22,7 @@ export default Ember.Component.extend(ConvertedOptions, {
         selectedIndex--
       }
       let option = this.get('convertedOptions').objectAt(selectedIndex)
-      let value = option ? option.value : null
-      this.set('value', value)
-      this.sendAction('action', value)
+      this.selectConvertedOption(option)
     }
   }
 })

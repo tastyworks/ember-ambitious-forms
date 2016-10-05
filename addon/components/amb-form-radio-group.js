@@ -7,12 +7,5 @@ export default Ember.Component.extend(ConvertedOptions, {
   tagName: 'span',
   classNames: ['amb-form-radio-group'],
 
-  name: Ember.computed.oneWay('elementId'),
-
-  actions: {
-    radioChange (value) {
-      this.set('value', value)
-      this.sendAction('action', value)
-    }
-  }
+  name: Ember.computed.oneWay('elementId')
 })

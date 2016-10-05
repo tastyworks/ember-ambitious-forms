@@ -36,5 +36,19 @@ export default Ember.Mixin.create({
     if (options) {
       return options.map((option) => convert(this, option))
     }
-  })
+  }),
+
+  selectConvertedOption (value) {
+    if (ConvertedOption.detectInstance(value)) {
+      value = value.get('value')
+    }
+    this.set('value', value)
+    this.sendAction && this.sendAction('action', value)
+  },
+
+  actions: {
+    selectConvertedOption (value) {
+      this.selectConvertedOption(value)
+    }
+  }
 })
