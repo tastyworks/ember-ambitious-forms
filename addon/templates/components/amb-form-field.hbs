@@ -5,7 +5,9 @@
           formattedValue=formattedValue
           convertedOptions=convertedOptions
           prompt=prompt
-          placeholder=placeholder) as |input|}}
+          placeholder=placeholder
+          action=(action 'valueChanged')
+        ) as |input|}}
   {{#if hasBlock}}
     {{yield (hash
       input=input

@@ -173,7 +173,14 @@ export default Ember.Component.extend(ConvertedOptions, {
 
   optionValues: Ember.computed('fieldType', function () {
     return this._fieldTypeConfig('options')
-  })
+  }),
+
+  actions: {
+    valueChanged (newValue) {
+      this.set('value', newValue)
+      this.sendAction('onChange', newValue)
+    }
+  }
 }).reopenClass({
   positionalParams: ['fieldKey']
 })
