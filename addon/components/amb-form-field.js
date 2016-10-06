@@ -183,7 +183,7 @@ export default Ember.Component.extend(ConvertedOptions, {
   actions: {
     valueChanged (newValue) {
       this.set('value', newValue)
-      this.sendAction('onChange', newValue, this.get('formattedValue'))
+      this.sendAction('onChange', this)
     }
   }
 }).reopenClass({
