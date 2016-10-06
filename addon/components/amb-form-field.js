@@ -30,9 +30,14 @@ export default Ember.Component.extend(ConvertedOptions, {
     }
   },
 
-  // See if scope has injection _toString
-  scopeName: Ember.computed('scope.constructor._toString', function () {
-    let matcher = /^.*:([-a-z]+):$/
+  scopeName: Ember.computed('scope.scopeName', 'scope.constructor._toString', function () {
+    let scopeName = this.get('scope.scopeName')
+    if (scopeName) {
+      return scopeName
+    }
+
+    // See if scope has injection _toString
+    let matcher = /^.*:([-/a-z0-9]+):$/
     let injectedClassName = this.get('scope.constructor._toString')
     if (matcher.test(injectedClassName)) {
       return injectedClassName.replace(matcher, '$1')
@@ -178,7 +183,7 @@ export default Ember.Component.extend(ConvertedOptions, {
   actions: {
     valueChanged (newValue) {
       this.set('value', newValue)
-      this.sendAction('onChange', newValue)
+      this.sendAction('onChange', newValue, this.get('formattedValue'))
     }
   }
 }).reopenClass({
