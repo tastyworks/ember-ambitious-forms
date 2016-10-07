@@ -1,12 +1,12 @@
-{{#with (hash) as |h|}}
-  {{amb-form-hash-set-properties h
-    scope=scope
-    errorState=errorState
+{{#with (hash
+          _ = this
+          scope=scope
+          errorState=errorState
+          fields=fields
 
-    field=(component 'amb-form-field' scope=scope alwaysShowErrors=alwaysShowErrors readOnly=readOnly onInsert=(action 'insertField') onRemove=(action 'removeField'))
-    group=(component 'amb-form-group' classNames='amb-form-group' scope=scope readOnly=readOnly alwaysShowErrors=alwaysShowErrors onInsertField=(action 'insertField') onRemoveField=(action 'removeField'))
-    group-each=(component 'amb-form-group-each' parent=h)
-  }}
-
+          field=(component 'amb-form-field' scope=scope alwaysShowErrors=alwaysShowErrors readOnly=readOnly onInsert=(action 'insertField') onRemove=(action 'removeField'))
+          group=(component 'amb-form-group' classNames='amb-form-group' scope=scope readOnly=readOnly alwaysShowErrors=alwaysShowErrors onInsertField=(action 'insertField') onRemoveField=(action 'removeField'))
+        ) as |h|}}
+  {{amb-form-hash-set h 'group-each' (component 'amb-form-group-each' parent=h)}}
   {{yield h}}
 {{/with}}
