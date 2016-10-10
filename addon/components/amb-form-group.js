@@ -15,26 +15,46 @@ export default Ember.Component.extend({
   }),
 
   _triggerErrorStateChanged: Ember.on('init', Ember.observer('errorState.value', function () {
-    let errorStateValue = this.get('errorState.value')
-    if (errorStateValue !== this.get('_lastErrorStateValue')) {
-      this.sendAction('onErrorStateChanged', this, this.get('errorState'))
-      this.set('_lastErrorStateValue', errorStateValue)
-    }
+    // This needs to fire after _syncFields
+    Ember.run.debounce(this, this._doTriggerErrorStateChanged, 30)
   })),
+
+  _doTriggerErrorStateChanged () {
+    if (!this.get('isDestroyed')) {
+      this.sendAction('onErrorStateChanged', this, this.get('errorState'))
+    }
+  },
+
+  _toInsert: Ember.computed(() => []),
+  _toRemove: Ember.computed(() => []),
+  _syncFields () {
+    let fields = this.get('fields')
+    let toInsert = this.get('_toInsert')
+    let toRemove = this.get('_toRemove')
+
+    fields.beginPropertyChanges()
+    fields.addObjects(toInsert)
+    fields.removeObjects(toRemove)
+    toInsert.clear()
+    toRemove.clear()
+    fields.endPropertyChanges()
+
+    this._triggerErrorStateChanged()
+  },
 
   actions: {
     insertField (component) {
+      this.get('_toInsert').push(component)
+      Ember.run.debounce(this, this._syncFields, 10)
+      this._triggerErrorStateChanged()
       this.sendAction('onInsertField', component)
-      Ember.run.schedule('afterRender', () => {
-        this.get('fields').addObject(component)
-      })
     },
 
     removeField (component) {
+      this.get('_toRemove').push(component)
+      Ember.run.debounce(this, this._syncFields, 10)
+      this._triggerErrorStateChanged()
       this.sendAction('onRemoveField', component)
-      Ember.run.schedule('afterRender', () => {
-        this.get('fields').removeObject(component)
-      })
     }
   }
 }).reopenClass({
