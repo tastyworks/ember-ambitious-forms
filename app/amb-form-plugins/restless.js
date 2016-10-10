@@ -14,8 +14,12 @@ export const Plugin = Ember.Mixin.create({
   }),
 
   fieldType: computedIndirect('_fieldTypeKey'),
-  _fieldTypeKey: Ember.computed('fieldKey', function () {
-    return `_modelMeta.fields.${this.get('fieldKey')}.type`
+  _fieldTypeKey: Ember.computed('_modelMeta.fields', 'fieldKey', function () {
+    if (this.get('_modelMeta.fields')) {
+      return `_modelMeta.fields.${this.get('fieldKey')}.type`
+    } else {
+      return '_fieldType'
+    }
   }),
 
   _didUpdate: Ember.observer('value', function () {
