@@ -133,7 +133,7 @@ export default Ember.Component.extend(ConvertedOptions, {
   showErrors: Ember.computed.or('_wasInteracted', 'alwaysShowErrors'),
 
   errorState: Ember.computed(function () {
-    return ErrorState.create({ content: [this] })
+    return ErrorState.create({ content: Ember.A([this]) })
   }),
 
   // If the field has 2 inputs, it might trigger focusOut => focusIn immediately

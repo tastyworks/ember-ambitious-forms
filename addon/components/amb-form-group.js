@@ -25,8 +25,8 @@ export default Ember.Component.extend({
     }
   },
 
-  _toInsert: Ember.computed(() => []),
-  _toRemove: Ember.computed(() => []),
+  _toInsert: Ember.computed(() => Ember.A()),
+  _toRemove: Ember.computed(() => Ember.A()),
   _syncFields () {
     let fields = this.get('fields')
     let toInsert = this.get('_toInsert')
