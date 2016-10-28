@@ -10,10 +10,12 @@ export default Ember.Component.extend(ConvertedOptions, {
 
   tagName: 'label',
   classNames: ['amb-form-field'],
+  classNameBindings: ['readOnly:amb-form-field-read-only', '_errorStateClass'],
+
   readOnly: false,
   // By default, do not show errors until user has interacted with the field
   alwaysShowErrors: false,
-  _wasInteracted: false,
+  _interactionState: null,
 
   _onInsert: Ember.on('didInsertElement', function () {
     this.sendAction('onInsert', this)
@@ -21,6 +23,11 @@ export default Ember.Component.extend(ConvertedOptions, {
 
   _onRemove: Ember.on('willDestroyElement', function () {
     this.sendAction('onRemove', this)
+  }),
+
+  _errorStateClass: Ember.computed('errorState.value', function () {
+    let errorStateValue = this.get('errorState.value')
+    return `amb-form-field-error-${errorStateValue}`
   }),
 
   _fieldTypeConfig (configName) {
@@ -130,11 +137,22 @@ export default Ember.Component.extend(ConvertedOptions, {
   hasErrors: Ember.computed('readOnly', 'errors.length', function () {
     return !this.get('readOnly') && Boolean(this.get('errors.length'))
   }),
-  showErrors: Ember.computed.or('_wasInteracted', 'alwaysShowErrors'),
+  showErrors: Ember.computed('alwaysShowErrors', '_interactionState', function () {
+    return this.get('alwaysShowErrors') || this.get('_interactionState') === 'done'
+  }),
 
   errorState: Ember.computed(function () {
     return ErrorState.create({ content: Ember.A([this]) })
   }),
+
+  focusIn () {
+    if (this._doFocusOutTimer) {
+      Ember.run.cancel(this._doFocusOutTimer)
+      this._doFocusOutTimer = null
+    }
+
+    this.set('_interactionState', 'active')
+  },
 
   // If the field has 2 inputs, it might trigger focusOut => focusIn immediately
   // Delay this fire to prevent double triggering from executing.
@@ -144,14 +162,7 @@ export default Ember.Component.extend(ConvertedOptions, {
 
   _doFocusOut () {
     if (!this.isDestroyed) {
-      this.set('_wasInteracted', true)
-    }
-  },
-
-  focusIn () {
-    if (this._doFocusOutTimer) {
-      Ember.run.cancel(this._doFocusOutTimer)
-      this._doFocusOutTimer = null
+      this.set('_interactionState', 'done')
     }
   },
 
@@ -182,6 +193,9 @@ export default Ember.Component.extend(ConvertedOptions, {
 
   actions: {
     valueChanged (newValue) {
+      if (this.get('_interactionState') !== 'active') {
+        this.set('_interactionState', 'done')
+      }
       this.set('value', newValue)
       this.sendAction('onChange', this)
     }
