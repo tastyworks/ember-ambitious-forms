@@ -163,6 +163,7 @@ export default Ember.Component.extend(ConvertedOptions, {
   _doFocusOut () {
     if (!this.isDestroyed) {
       this.set('_interactionState', 'done')
+      this.sendAction('onInteractionComplete', this)
     }
   },
 
