@@ -27,6 +27,7 @@ export default Ember.Component.extend(InputChangeMixin, {
     'value',
     'name',
     'type',
+    'disabled',
     'placeholder',
     'disabled',
     'size',
