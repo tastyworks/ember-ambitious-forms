@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   layoutName: 'ember-ambitious-forms@components/amb-form-radio',
   tagName: 'label',
   classNames: 'amb-form-radio',
-  classNameBindings: 'checked:checked:unchecked',
+  classNameBindings: ['checked:checked:unchecked', 'disabled:disabled'],
 
   actions: {
     select () {
