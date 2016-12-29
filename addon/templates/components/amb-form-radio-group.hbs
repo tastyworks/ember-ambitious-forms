@@ -1,5 +1,5 @@
 {{#each convertedOptions as |option|}}
-  {{#amb-form-radio name=name classNames=option.classNames value=option.value checked=option.isSelected action='selectConvertedOption'}}
+  {{#amb-form-radio name=name classNames=option.classNames value=option.value checked=option.isSelected action='selectConvertedOption' disabled=option.disabled}}
     <span class='amb-form-radio-text'>{{option.text}}</span>
     {{#if option.description}}
       <span class='amb-form-radio-description'>{{option.description}}</span>
