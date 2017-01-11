@@ -192,6 +192,11 @@ export default Ember.Component.extend(ConvertedOptions, {
     return this._fieldTypeConfig('options')
   }),
 
+  resetErrorState () {
+    this.set('value', null)
+    this.set('_interactionState', null)
+  },
+
   actions: {
     valueChanged (newValue) {
       if (this.get('_interactionState') !== 'active') {
