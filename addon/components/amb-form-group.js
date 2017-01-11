@@ -42,6 +42,10 @@ export default Ember.Component.extend({
     this._triggerErrorStateChanged()
   },
 
+  resetFields() {
+    this.get('fields').forEach((field, _index, _enum) => field.resetErrorState())
+  },
+
   actions: {
     insertField (component) {
       this.get('_toInsert').push(component)
