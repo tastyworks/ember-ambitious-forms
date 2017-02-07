@@ -21,6 +21,10 @@ Template:
 {{/amb-form}}
 ```
 
+## Developing
+
+To request changes, please fork this project and create a PR from that.
+
 ## Running
 
 * `ember server`
