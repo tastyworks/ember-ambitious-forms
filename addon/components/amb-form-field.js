@@ -193,7 +193,7 @@ export default Ember.Component.extend(ConvertedOptions, {
   }),
 
   resetErrorState () {
-    if (!this.get('readOnly')) {
+    if (!this.get('readOnly') && this.get('type') !== 'hidden') {
       this.set('value', null)
       this.set('_interactionState', null)
     }
