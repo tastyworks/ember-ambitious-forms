@@ -3,7 +3,7 @@
     <option>{{prompt}}</option>
   {{/if}}
   {{#each convertedOptions as |option|}}
-    <option class={{option.classNames}} selected={{option.isSelected}} value={{option.value}}>
+    <option data-test-id={{testId}} class={{option.classNames}} selected={{option.isSelected}} value={{option.value}}>
       {{option.text}}
       {{#if option.description}}
         - {{option.description}}
