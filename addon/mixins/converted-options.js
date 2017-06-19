@@ -14,6 +14,10 @@ export const ConvertedOption = Ember.Object.extend({
   }),
   isSelected: Ember.computed('value', 'source.value', function () {
     return this.get('value') === this.get('source.value')
+  }),
+  testId: Ember.computed('value', function () {
+    let dashValue = Ember.String.dasherize('' + this.get('value'))
+    return `amb-form-option-${dashValue}`
   })
 })
 
