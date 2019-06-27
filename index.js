@@ -4,7 +4,7 @@
 module.exports = {
   name: 'ember-ambitious-forms',
   init: function (app) {
-    this._super(...arguments)
+    this._super.init && this._super.init.apply(this, arguments);
     this.options = this.options || {}
     this.options.babel = this.options.babel || {}
     this.options.babel.optional = this.options.babel.optional || []
