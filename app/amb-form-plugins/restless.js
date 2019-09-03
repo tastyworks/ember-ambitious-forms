@@ -8,7 +8,10 @@ export function autoLoad (appInstance) {
 export const Plugin = Ember.Mixin.create({
   model: Ember.computed.alias('scope'),
 
-  _modelMeta: Ember.computed.readOnly('model.constructor'),
+  _modelMeta: Ember.computed('model', function () {
+    return this.get('model.constructor')
+  }),
+
   scopeName: Ember.computed('_modelMeta.resourceName', function () {
     return this.get('_modelMeta.resourceName') || this._super()
   }),

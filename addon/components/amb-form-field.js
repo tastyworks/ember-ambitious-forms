@@ -37,7 +37,7 @@ export default Ember.Component.extend(ConvertedOptions, {
     }
   },
 
-  scopeName: Ember.computed('scope.scopeName', 'scope.constructor._toString', function () {
+  scopeName: Ember.computed('scope.scopeName', 'scope', function () {
     let scopeName = this.get('scope.scopeName')
     if (scopeName) {
       return scopeName
