@@ -47,10 +47,15 @@ export default Ember.Component.extend(ConvertedOptions, {
     if (scopeName) {
       return scopeName
     }
+    let scope = this.get('scope')
+    if (Ember.isNone(scope)) {
+      return
+    }
 
-    // See if scope has injection _toString
+    // See if scope has injection Ember object toString()
     let matcher = /^.*:([-/a-z0-9]+):.*$/
-    let injectedClassName = this.get('scope').toString()
+    let injectedClassName = scope.toString()
+
     if (matcher.test(injectedClassName)) {
       return injectedClassName.replace(matcher, '$1')
     }
