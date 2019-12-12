@@ -7,8 +7,9 @@
           field=(component 'amb-form-field' scope=scope alwaysShowErrors=alwaysShowErrors readOnly=readOnly onInsert=(action 'insertField') onRemove=(action 'removeField'))
           group=(component 'amb-form-group' classNames='amb-form-group' scope=scope readOnly=readOnly alwaysShowErrors=alwaysShowErrors onInsertField=(action 'insertField') onRemoveField=(action 'removeField'))
         ) as |h|}}
-  {{amb-form-hash-set h 'group-each' (component 'amb-form-group-each' parent=h)}}
-  <fieldset disabled={{disabled}}>
-    {{yield h}}
-  </fieldset>
+  {{#with (amb-form-hash-merge h 'group-each' (component 'amb-form-group-each' parent=h)) as |g|}}
+    <fieldset disabled={{disabled}}>
+      {{yield g}}
+    </fieldset>
+  {{/with}}
 {{/with}}
