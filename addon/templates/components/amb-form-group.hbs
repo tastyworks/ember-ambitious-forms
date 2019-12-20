@@ -3,8 +3,9 @@
           scope=scope
           errorState=errorState
           fields=fields
+          hasErrors=hasErrors
 
-          field=(component 'amb-form-field' scope=scope alwaysShowErrors=alwaysShowErrors readOnly=readOnly onInsert=(action 'insertField') onRemove=(action 'removeField'))
+          field=(component 'amb-form-field' scope=scope alwaysShowErrors=alwaysShowErrors readOnly=readOnly onInsert=(action 'insertField') onRemove=(action 'removeField') onToggleReadOnly=(action 'triggerErrorStateChanged') onChange=(action 'triggerErrorStateChanged'))
           group=(component 'amb-form-group' classNames='amb-form-group' scope=scope readOnly=readOnly alwaysShowErrors=alwaysShowErrors onInsertField=(action 'insertField') onRemoveField=(action 'removeField'))
         ) as |h|}}
   {{#with (amb-form-hash-merge h 'group-each' (component 'amb-form-group-each' parent=h)) as |g|}}

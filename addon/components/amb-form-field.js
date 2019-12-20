@@ -30,6 +30,10 @@ export default Ember.Component.extend(ConvertedOptions, {
     this.sendAction('onRemove', this)
   }),
 
+  _onToggleReadOnly: Ember.observer('readOnly', function () {
+    this.sendAction('onToggleReadOnly', this)
+  }),
+
   _errorStateClass: Ember.computed('errorState.value', function () {
     let errorStateValue = this.get('errorState.value')
     return `amb-form-field-error-${errorStateValue}`

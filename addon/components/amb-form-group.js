@@ -9,7 +9,7 @@ export default Ember.Component.extend({
   fields: Ember.computed(() => Ember.A()),
   fieldsWithErrors: Ember.computed.alias('errorState.contentWithErrors'),
 
-  hasErrors: Ember.computed.alias('errorState.hasAny'),
+  hasErrors: false,
   errorState: Ember.computed('fields', function () {
     return ErrorState.create({ content: this.get('fields') })
   }),
@@ -21,6 +21,7 @@ export default Ember.Component.extend({
 
   _doTriggerErrorStateChanged () {
     if (!this.get('isDestroyed')) {
+      this.set('hasErrors', this.get('errorState.hasAny'))
       this.sendAction('onErrorStateChanged', this, this.get('errorState'))
     }
   },
@@ -59,6 +60,11 @@ export default Ember.Component.extend({
       Ember.run.debounce(this, this._syncFields, 10)
       this._triggerErrorStateChanged()
       this.sendAction('onRemoveField', component)
+    },
+
+    triggerErrorStateChanged () {
+      Ember.run.debounce(this, this._syncFields, 10)
+      this._triggerErrorStateChanged()
     }
   }
 }).reopenClass({
