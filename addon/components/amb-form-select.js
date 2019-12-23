@@ -18,7 +18,9 @@ export default Ember.Component.extend(ConvertedOptions, {
   init () {
     this._super(...arguments)
     if (this.get('convertedOptions.length') === 1) {
-      this.selectConvertedOption(this.get('convertedOptions.firstObject'))
+      Ember.run.next(() => {
+        this.selectConvertedOption(this.get('convertedOptions.firstObject'))
+      })
     }
   },
 
