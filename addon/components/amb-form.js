@@ -22,6 +22,8 @@ export default AmbFormGroup.extend({
   },
 
   submit (e) {
+    this._doTriggerErrorStateChanged()
+
     if (e) {
       e.preventDefault()
     }
