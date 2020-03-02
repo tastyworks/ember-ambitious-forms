@@ -201,7 +201,8 @@ export default Ember.Component.extend(ConvertedOptions, {
 
   actions: {
     valueChanged (newValue) {
-      if (this.get('_interactionState') !== 'active') {
+      const interactionState = this.get('_interactionState')
+      if (Ember.isPresent(interactionState) && interactionState !== 'active') {
         this.set('_interactionState', 'done')
       }
       this.set('value', newValue)
