@@ -4,6 +4,11 @@ import computedIndirect from 'ember-computed-indirect/utils/indirect'
 import ConvertedOptions from '../mixins/converted-options'
 import ErrorState from '../utils/error-state'
 
+const INTERACTION_STATE = {
+  ACTIVE: 'active',
+  DONE: 'done'
+}
+
 export default Ember.Component.extend(ConvertedOptions, {
   layoutName: 'ember-ambitious-forms@components/amb-form-field',
   service: Ember.inject.service('ember-ambitious-forms'),
@@ -138,7 +143,7 @@ export default Ember.Component.extend(ConvertedOptions, {
     return !this.get('readOnly') && Boolean(this.get('errors.length'))
   }),
   showErrors: Ember.computed('alwaysShowErrors', '_interactionState', function () {
-    return this.get('alwaysShowErrors') || this.get('_interactionState') === 'done'
+    return this.get('alwaysShowErrors') || this.get('_interactionState') === INTERACTION_STATE.DONE
   }),
 
   errorState: Ember.computed(function () {
@@ -151,7 +156,7 @@ export default Ember.Component.extend(ConvertedOptions, {
       this._doFocusOutTimer = null
     }
 
-    this.set('_interactionState', 'active')
+    this.set('_interactionState', INTERACTION_STATE.ACTIVE)
   },
 
   // If the field has 2 inputs, it might trigger focusOut => focusIn immediately
@@ -162,7 +167,7 @@ export default Ember.Component.extend(ConvertedOptions, {
 
   _doFocusOut () {
     if (!this.isDestroyed) {
-      this.set('_interactionState', 'done')
+      this.set('_interactionState', INTERACTION_STATE.DONE)
       this.sendAction('onInteractionComplete', this)
     }
   },
@@ -203,10 +208,14 @@ export default Ember.Component.extend(ConvertedOptions, {
     valueChanged (newValue) {
       const interactionState = this.get('_interactionState')
       if (Ember.isPresent(interactionState) && interactionState !== 'active') {
-        this.set('_interactionState', 'done')
+        this.set('_interactionState', INTERACTION_STATE.DONE)
       }
       this.set('value', newValue)
       this.sendAction('onChange', this)
+    },
+
+    setInteractionComplete () {
+      this.set('_interactionState', INTERACTION_STATE.DONE)
     }
   }
 }).reopenClass({
