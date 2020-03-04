@@ -47,7 +47,11 @@ export default Ember.Mixin.create({
       value = value.get('value')
     }
     this.set('value', value)
-    this.sendAction && this.sendAction('action', value)
+
+    if (this.sendAction) {
+      this.sendAction('action', value)
+      this.sendAction('didInteractionComplete')
+    }
   },
 
   actions: {

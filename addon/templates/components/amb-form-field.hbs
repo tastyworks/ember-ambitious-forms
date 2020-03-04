@@ -13,6 +13,7 @@
           autocomplete=autocomplete
           name=name
           action=(action 'valueChanged')
+          didInteractionComplete=(action 'setInteractionComplete')
         ) as |input|}}
   {{#if hasBlock}}
     {{yield (hash
