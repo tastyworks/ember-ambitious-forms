@@ -1,20 +1,45 @@
 module.exports = function() {
   return {
-    useVersionCompatibility: true,
-
     scenarios: [
       {
-        name: 'ember-release',
-        allowedToFail: true,
+        name: 'default',
+        bower: {
+          dependencies: { }
+        }
+      },
+      {
+        name: 'ember-lts-2.8',
         bower: {
           dependencies: {
-            'ember': 'components/ember#release'
+            'ember': 'components/ember#lts-2-8'
           },
           resolutions: {
-            'ember': 'release'
+            'ember': 'lts-2-8'
           }
         }
       },
+      {
+        name: 'ember-2.13',
+        bower: {
+          dependencies: {
+            'ember': 'components/ember#2.13.4'
+          },
+          resolutions: {
+            'ember': '2.13.4'
+          }
+        }
+      },
+      {
+        name: 'ember-2.18',
+        bower: {
+          dependencies: {
+            'ember': 'components/ember#2.18.2'
+          },
+          resolutions: {
+            'ember': '2.18.2'
+          }
+        }
+      }
     ]
   };
 };

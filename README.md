@@ -7,7 +7,7 @@ Ambitious, flexible, (mostly) *un*opinionated form helpers.
 Command-line:
 
 ```bash
-$ ember install git://github.com/dough-com/ember-ambitious-forms
+$ ember install @tastyworks/ember-ambitious-forms
 ```
 
 Template:
