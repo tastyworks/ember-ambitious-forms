@@ -1,3 +1,5 @@
+import Ember from 'ember'
+
 function computedAnyBy (dependentKey, propertyKey) {
   return Ember.computed(`${dependentKey}.@each.${propertyKey}`, function () {
     return Boolean(this.get(dependentKey).findBy(propertyKey))
