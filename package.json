@@ -1,5 +1,5 @@
 {
-  "name": "ember-ambitious-forms",
+  "name": "@tastyworks/ember-ambitious-forms",
   "version": "0.0.0",
   "description": "Ambitious, flexible, (mostly) *un*opinionated form helpers.",
   "directories": {
@@ -11,7 +11,13 @@
     "start": "ember server",
     "test": "ember try:each"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tastyworks/ember-ambitious-forms.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "engines": {
     "node": ">= 8"
   },
@@ -49,9 +55,6 @@
     "ember-computed-decorators": "^0.2.1"
   },
   "ember-addon": {
-    "versionCompatibility": {
-      "ember": ">2.6.0 <3.0.0"
-    },
     "configPath": "tests/dummy/config"
   }
 }
