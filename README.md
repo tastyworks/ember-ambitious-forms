@@ -41,3 +41,15 @@ To request changes, please fork this project and create a PR from that.
 * `ember build`
 
 For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+
+## Releasing
+
+Github Actions will automatically package the module whenever the package.json version is bumped and version tag is created in the `postversion` script.
+
+**After merging your PR to master:**
+
+```bash
+git checkout master
+git pull && git push # to ensure local and remote match
+npm version <major|minor|patch>
+```

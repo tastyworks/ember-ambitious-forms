@@ -9,7 +9,8 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "ember try:each"
+    "test": "ember try:each",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
