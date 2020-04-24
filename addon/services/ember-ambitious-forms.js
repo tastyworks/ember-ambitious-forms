@@ -23,7 +23,7 @@ export default Ember.Service.extend({
   _loadFormPlugins: Ember.on('init', function () {
     // TODO: observe 'config.plugins' and load/unload changes
     let owner = Ember.getOwner(this)
-    let afFieldClass = owner._lookupFactory('component:amb-form-field')
+    let afFieldClass = owner.factoryFor('component:amb-form-field').class
     this.get('config.plugins').forEach((name) => {
       let plugin = owner.resolveRegistration(`amb-form-plugin:${name}`)
       if (plugin instanceof Ember.Mixin) {
