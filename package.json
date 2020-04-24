@@ -1,6 +1,6 @@
 {
   "name": "@tastyworks/ember-ambitious-forms",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Ambitious, flexible, (mostly) *un*opinionated form helpers.",
   "directories": {
     "doc": "doc",
