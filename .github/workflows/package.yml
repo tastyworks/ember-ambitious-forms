@@ -14,8 +14,6 @@ jobs:
         with:
           node-version: 8
       - run: npm ci
-      - run: npm i -g bower
-      - run: bower i
       - run: npm run build --if-present
       - run: npm test
 
