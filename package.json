@@ -54,6 +54,9 @@
     "ember-test-selectors": "0.3.4",
     "ember-try": "^1.4.0",
     "ember-welcome-page": "^3.0.0",
+    "eslint-config-standard": "^5.3.5",
+    "eslint-plugin-promise": "^2.0.0",
+    "eslint-plugin-standard": "^2.0.0",
     "loader.js": "^4.2.3"
   },
   "ember-addon": {

@@ -76,7 +76,7 @@ export default Ember.Component.extend(ConvertedOptions, {
     }
 
     switch (this.getWithDefault('fieldType', '').toLowerCase()) {
-      case 'number':  return 'number'
+      case 'number': return 'number'
       case 'boolean': return 'checkbox'
     }
 

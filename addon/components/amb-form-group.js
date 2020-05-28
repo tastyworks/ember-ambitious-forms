@@ -43,7 +43,7 @@ export default Ember.Component.extend({
     this._triggerErrorStateChanged()
   },
 
-  resetFields() {
+  resetFields () {
     this.get('fields').forEach((field) => field.resetErrorState())
   },
 
