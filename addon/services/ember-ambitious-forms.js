@@ -41,10 +41,10 @@ export default Ember.Service.extend({
     let debugAdapter = owner.lookup('container-debug-adapter:main')
     return debugAdapter.catalogEntriesByType('amb-form-plugin')
            .filter((name) => {
-              let plugin = owner.resolveRegistration(`amb-form-plugin:${name}`)
-              return plugin &&
-                     (plugin instanceof Ember.Mixin) ||
-                     (plugin.autoLoad && plugin.autoLoad(owner))
+             let plugin = owner.resolveRegistration(`amb-form-plugin:${name}`)
+             return plugin &&
+                    (plugin instanceof Ember.Mixin) ||
+                    (plugin.autoLoad && plugin.autoLoad(owner))
            })
   }
 })

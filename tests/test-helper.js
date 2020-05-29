@@ -5,4 +5,4 @@ import {
 import { start } from 'ember-cli-qunit'
 
 setResolver(resolver)
-start();
+start()

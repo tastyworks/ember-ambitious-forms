@@ -12,7 +12,7 @@ export default AmbFormGroup.extend({
   scrollToErrorField (index = 0) {
     let field = this.get('fieldsWithErrors').objectAt(index)
     if (field) {
-      this.scrollTo(field, { paddingTop: 20})
+      this.scrollTo(field, { paddingTop: 20 })
     }
   },
 
