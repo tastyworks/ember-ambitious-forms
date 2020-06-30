@@ -30,7 +30,7 @@ export default Ember.Component.extend({
   _toRemove: Ember.computed(() => Ember.A()),
   _syncFields () {
     let fields = this.get('fields')
-    let toInsert = this.get('_toInsert')
+    let toInsert = this.get('_toInsert').filter((field) => !field.get('isDestroyed'))
     let toRemove = this.get('_toRemove')
 
     fields.beginPropertyChanges()
