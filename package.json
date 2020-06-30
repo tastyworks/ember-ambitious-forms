@@ -1,6 +1,6 @@
 {
   "name": "@tastyworks/ember-ambitious-forms",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Ambitious, flexible, (mostly) *un*opinionated form helpers.",
   "keywords": [
     "ember-addon"
